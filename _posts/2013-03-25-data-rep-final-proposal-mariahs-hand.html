@@ -1,0 +1,40 @@
+---
+layout: post
+title: 'Data Rep Final Proposal: Mariah''s Hand'
+date: 2013-03-25 17:27:16.000000000 -04:00
+categories:
+- Data Rep
+tags:
+- Data Representation
+- ITP
+- Mariah Carey
+status: publish
+type: post
+published: true
+meta:
+  _edit_last: '1'
+  _oembed_b903c013d58b15f7e57bf2ea3409966e: <iframe width="600" height="450" src="http://www.youtube.com/embed/3msfbAtJnEE?feature=oembed&start=837"
+    frameborder="0" allowfullscreen></iframe>
+author:
+  login: sambrenner
+  email: samjbrenner@gmail.com
+  display_name: sambrenner
+  first_name: ''
+  last_name: ''
+excerpt: !ruby/object:Hpricot::Doc
+  options: {}
+---
+<p><img class="alignnone size-medium wp-image-375" alt="Screen Shot 2013-01-24 at 7.06.25 PM" src="/assets/Screen-Shot-2013-01-24-at-7.06.25-PM-600x335.png" width="600" height="335" /></p>
+<p>I have some serious, deep, issue-tackling projects nearing completion. This is not one of them. For my final project in Data Representation, I will answer the question "how does the position of Mariah Carey's flailing hand relate to the pitch of her voice?"</p>
+<p><!--more--></p>
+<h2>Background</h2>
+<p>At first, I thought the hand-waving thing was a stereotype among the female vocalists known as "Divas," and that it would be fun to analyze these motions in some way. I did some research and found that Mariah is the only one who consistently waves her hand in the way I'm after: where Y position roughly corresponds to pitch. Some other Divas have their own mid-song tics: Christina <a href="https://www.youtube.com/watch?v=s3TIl2WNtAo#t=1m59s">plays the trumpet</a> with her microphone (that's a whole other idea in itself...) and Celine does <a href="https://www.youtube.com/watch?v=CEggoXwoXEY">this,</a> but for this project I will just be focusing on Mariah.</p>
+<p>Also, this is a good time to give the Major Hat Tip to <a href="http://whiteglovetracking.com/">White Glove Tracking</a> - I can't exactly measure the great influence this project has had on my work, but it's probably around two dozen.</p>
+<h2>The Data</h2>
+<p>I spent hours watching Mariah's concert footage on YouTube trying to find the perfect clip to exemplify her arm-dance. Most of the clips show it for a few seconds and then cut away to a wider or closer shot. But on I searched, and search I did, and then I found it:</p>
+<p>[embed width="600"]http://www.youtube.com/watch?v=3msfbAtJnEE#t=13m57s[/embed]</p>
+<p>40 seconds of uninterrupted movement. The camera dollies and zooms in a bit, but her hand is visible the whole time, its range of movement as wide as Mariah's range of notes. I'm currently in the middle of going through the clip, frame by frame, to get her hand's position using After Effects (see image at the top of the post). That, plus the actual note she is singing, will comprise my data set.</p>
+<h2>The Representation</h2>
+<p>I have a few ideas of how I want to show the data. Their common foundation will be the difference between the note she is actually singing and she note she should be singing according to her hand. I'll be able to figure that out by mapping her hand's Y coordinate from the range of [lowest hand Y, highest hand Y] to the range of [lowest note sung, highest note sung].</p>
+<p>The "big execution" that I'd like to pull off would be to transcribe the notes she should be singing to sheet music and find a vocalist who can sing them back over the original video.</p>
+<p>To be continued!</p>

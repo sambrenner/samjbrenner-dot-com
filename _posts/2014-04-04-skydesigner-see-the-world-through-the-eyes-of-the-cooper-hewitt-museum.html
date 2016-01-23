@@ -1,0 +1,26 @@
+---
+layout: post
+title: 'SkyDesigner: See the World Through the Eyes of the Cooper-Hewitt Museum'
+date: 2014-04-04 12:57:18.000000000 -04:00
+categories:
+- Cooper-Hewitt
+- Experiments
+tags: []
+status: draft
+type: post
+published: false
+meta:
+  _edit_last: '1'
+author:
+  login: sambrenner
+  email: samjbrenner@gmail.com
+  display_name: sambrenner
+  first_name: ''
+  last_name: ''
+excerpt: !ruby/object:Hpricot::Doc
+  options: {}
+---
+<p><img class="alignnone size-medium wp-image-608" alt="compiled" src="/assets/compiled-800x340.jpg" width="800" height="340" /></p>
+<p>I'm excited to announce that I'll soon be joining the <a href="http://www.cooperhewitt.org/">Smithsonian Cooper-Hewitt, National Design Museum</a> as an Interactive Media Developer. Museums have been a constant source of inspiration throughout my life and I'm thrilled to have the opportunity to help design and develop the future of the museum experience. The Cooper-Hewitt has already showed its desire to integrate technology into the core of the museum by making their <a href="https://collection.cooperhewitt.org/api">entire collection accessible through an API</a> and by <a href="http://www.cooperhewitt.org/planetary-bloom">acquiring the iPad app Planetary</a> (and its <a href="https://github.com/cooperhewitt/Planetary">source code</a>). With the museum approaching its re-opening after <a href="http://www.cooperhewitt.org/redesign">years of renovations</a>, this is a very exciting time to join the team!</p>
+<p>As part of my application for the position, I built SkyDesigner, a mobile website that lets users replace the sky with a similarly-colored item from the Cooper-Hewitt's collection. Users on smartphones can take a picture and then tap on the sky to select its color. The app then <a href="https://collection.cooperhewitt.org/api/methods/cooperhewitt.search.objects">searches the collection</a> for objects of that color, chooses one, and loads it in behind the camera photo. Finally, pixels on the original photo which are close to the selected color are made transparent, revealing the museum's object behind it.</p>
+<p>You can try it out for yourself <a href="http://samjbrenner.com/projects/sky/">here</a>. I've tested it on iOS 6+ (Safari and Chrome), Android 4.2 (Firefox and Chrome). If you're on a desktop or laptop, it should also work in Firefox or Chrome if you have a webcam. The source code is available on <a href="https://github.com/sambrenner/skydesigner">GitHub</a>.</p>

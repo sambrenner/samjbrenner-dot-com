@@ -1,0 +1,49 @@
+---
+layout: post
+title: 'Redial: AGI and Ruby'
+date: 2013-02-26 13:46:07.000000000 -05:00
+categories:
+- Redial
+tags:
+- ITP
+- Redial
+- Ruby
+status: publish
+type: post
+published: true
+meta:
+  _edit_last: '1'
+author:
+  login: sambrenner
+  email: samjbrenner@gmail.com
+  display_name: sambrenner
+  first_name: ''
+  last_name: ''
+excerpt: !ruby/object:Hpricot::Doc
+  options: {}
+---
+<p>This week, Redial had me finally becoming familiar with Ruby. We used AGI (Asterisk Gateway Interface) to pull info from the web and have it do something over the phone. My application takes two zipcodes entered on the keypad and sends them to a web service that calculates the distance between them. That distance is then read back to the caller.</p>
+<p>Super quick and dirty, no error handling or input validation. Here's the extensions.conf - it takes the two zip codes and sends it to Ruby:</p>
+<p>[cc]<br />
+[zip]<br />
+exten => s,1,Answer()<br />
+same => n,Read(zipA,"beep",5)<br />
+same => n,Read(zipB,"beep",5)<br />
+same => n,AGI(zip.rb,${zipA},${zipB})<br />
+[/cc]</p>
+<p>And here's zip.rb - it takes the zip codes, sends them to <a href="http://zipcodedistanceapi.cymi.org/">this zip code distance API</a>, gets the XML response and tells AGI to read it back to the caller:</p>
+<p>[cc lang="ruby"]<br />
+#!/usr/bin/ruby</p>
+<p>require 'rubygems'<br />
+require 'ruby-agi'<br />
+require 'net/http'<br />
+require 'rexml/document'</p>
+<p>agi = AGI.new</p>
+<p>zipA = ARGV[0]<br />
+zipB = ARGV[1]</p>
+<p>url = "http://zipcodedistanceapi.cymi.org/rest/distance.xml/" + zipA + "/" + zipB + "/mile"<br />
+response = Net::HTTP.get_response(URI.parse(url)).body<br />
+doc = REXML::Document.new(response)<br />
+miles = REXML::Functions.number(doc.get_text('response/distance')).floor</p>
+<p>agi.say_number(miles)<br />
+[/cc]</p>

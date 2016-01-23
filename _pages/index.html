@@ -1,0 +1,35 @@
+---
+layout: default
+permalink: "/"
+type: page
+description: The Internet Home of Sam Brenner, Interactive Media Developer at Cooper Hewitt, Smithsonian Design Museum
+---
+
+{% for post in site.posts %}
+	{% if post.tags contains "Featured" %}
+		<article class="portfolio col-md-6">
+			<header>
+				<div class="media">
+					<img class="img-responsive" alt="{{ post.thumbnail_alt }}" src="{{ post.thumbnail }}" />
+				</div>
+					
+				<h2>
+					{% if post.homepage_title %}
+						{{ post.homepage_title }}
+					{% else %}
+						{{ post.title }}
+					{% endif %}
+				</h2>
+				<h3>
+					{% if post.client %}
+						{{ post.client }},
+					{% endif %}
+
+					{{ post.dateline }}
+				</h3>
+			</header>
+
+			{{ post.description | markdownify }}
+		</article>
+	{% endif %}
+{% endfor %}

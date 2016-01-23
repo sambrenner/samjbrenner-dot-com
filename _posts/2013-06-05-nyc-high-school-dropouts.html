@@ -1,0 +1,37 @@
+---
+layout: post
+title: NYC High School Dropouts
+date: 2013-06-05 19:58:39.000000000 -04:00
+categories:
+- ITP
+- Sculpting Data Into Everyday Objects
+tags:
+- 3D Printing
+- Data Representation
+- Fabrication
+- ITP
+- Project Write-Up
+status: publish
+type: post
+published: true
+meta:
+  _edit_last: '1'
+author:
+  login: sambrenner
+  email: samjbrenner@gmail.com
+  display_name: sambrenner
+  first_name: ''
+  last_name: ''
+excerpt: !ruby/object:Hpricot::Doc
+  options: {}
+---
+<p>[ylwm_vimeo width="800" height="450"]66354557[/ylwm_vimeo]</p>
+<p>For our final project in <a href="http://itp.nyu.edu/classes/sdieo-spring2013/">Sculpting Data Into Everyday Objects</a>, I worked with <a href="http://benkauffman.com">Ben Kauffman</a> to visualize the cohort* dropout rate for high schools in New York City using data from the city's <a href="schools.nyc.gov/Accountability/data/GraduationDropoutReports/default.htm">Department of Education</a>.</p>
+<p>Each bead on the map represents one high school in New York City, placed in its geographic location. The length of the string represents how many students dropped out from that high school. A bead is glued at each end to hold the string in place and enable it to hang down. If there are multiple high schools at one location, extra beads are added.</p>
+<p><a href="http://samjbrenner.com/notes/wp-content/uploads/2013/06/web_IMG_9859.jpg"><img class="alignnone size-medium wp-image-429" alt="web_IMG_9859" src="/assets/web_IMG_9859-800x909.jpg" width="800" height="909" /></a></p>
+<p><!--more--><a href="http://samjbrenner.com/notes/wp-content/uploads/2013/06/web_IMG_9873.jpg"><img class="alignnone size-medium wp-image-430" alt="web_IMG_9873" src="/assets/web_IMG_9873-600x327.jpg" width="600" height="327" /></a> <a href="http://samjbrenner.com/notes/wp-content/uploads/2013/06/web_IMG_9876.jpg"><img class="alignnone size-medium wp-image-431" alt="web_IMG_9876" src="/assets/web_IMG_9876-600x400.jpg" width="600" height="400" /></a> <a href="http://samjbrenner.com/notes/wp-content/uploads/2013/06/web_IMG_9886.jpg"><img class="alignnone size-medium wp-image-432" alt="web_IMG_9886" src="/assets/web_IMG_9886-600x475.jpg" width="600" height="475" /></a></p>
+<p><a href="http://processing.org/">Processing</a> was used to parse and organize the data. Rhino was used to conceptualize the hanging beads and model the shelf from which the strings hang. We printed the shelf using the ZCorp 650 3D printer at NYU’s <a href="http://www.nyu.edu/its/ams/">Advanced Media Studio</a>. The cutting of string and gluing beads was done by hand.</p>
+<p>The <a href="schools.nyc.gov/Accountability/data/GraduationDropoutReports/default.htm">data</a> <a href="http://books.google.com/books?id=nRduHUeIzvAC&amp;pg=PA53&amp;lpg=PA55&amp;ots=RmmJmyYVHd&amp;q&amp;f=false#v=onepage&amp;q&amp;f=false">was</a> gathered and released by the New York City Department of Education. For every high school in the city, the data tracked members of the class of 2011 starting from their enrollment in 2007. If at the end of the four year period the student has not graduated or is not still enrolled, he or she is considered to have dropped out.</p>
+<p>Despite placing schools on the city map, the data tends to resist all-encompassing theories on school attendance. Comparing dropout rates based on borough, neighborhood income level, or race and ethnicity distribution showed no correlations. This may be the result of NYC DOE policy which allows students to attend schools far from their home.</p>
+<p>Our findings are granular and raise more questions than they answer. For instance, what explains the disparity between Bushwick Community High School and the Academy of Environmental Leadership, with dropout rates of 41% and 16%, respectively? After all, the two schools are only a few blocks apart. Local and individual analysis of schools, rather than broad patterns, may provide better insight.</p>
+<p>* The University of Minnesota’s <a href="http://www.ncset.org/">National Center on Secondary Education and Transition</a> lists <a href="http://ncset.org/publications/essentialtools/dropout/part1.2.asp">three ways dropout rates can be calculated</a>: the event rate, which measures dropouts in a single year; the status rate, which divides non-enrolled and non-graduated students of a certain age range by all members of that age range; and the cohort rate, which follows a specific group of students over a set period of time. The data represented here is the cohort rate over four years.</p>

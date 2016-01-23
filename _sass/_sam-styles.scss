@@ -1,0 +1,160 @@
+::selection {
+	background: #DDD;
+}
+::-moz-selection {
+	background: #DDD;
+}
+
+a {
+	color: #D40000;
+
+	&:hover,
+	&:active,
+	&:focus, {
+		color: #D40000;
+		outline: none;
+	}
+}
+
+body {
+	font-size: 1.6rem;
+}
+
+h1, h2, h3, h4 {
+	margin: 0;
+
+	&::selection {
+		background: #666;
+	}
+
+	&::-moz-selection {
+		background: #666;
+	}
+}
+
+h2 {
+	margin-bottom: .8rem;
+}
+
+h3, h4 {
+	color: #CCC;
+}
+
+.post-content {
+	margin-bottom: 4rem;
+	min-height: 300px;
+
+	header {
+		img {
+			position: absolute;
+			top: 0;
+		}
+
+		margin-bottom: 1rem;
+
+		.media {
+			margin-bottom: 2rem;
+			padding-top: 56.25%;
+			position: relative;
+			width: 100%;
+		}
+	}
+
+	.highlight {
+		pre {
+			max-height: 300px;
+		}
+	}
+
+	.embed-responsive,
+	.highlight,
+	img {
+		display: block;
+		margin: 2rem auto;
+	}
+
+	li, p {
+		code {
+			background: none;
+			color: $gray-darker;
+			font-size: 85%;
+		}
+	}
+}
+
+header {
+	h1 {
+		a {
+			color: $gray-dark;
+			&:hover {
+				color: $gray-dark;
+				text-decoration: none;
+			}
+		}
+
+		.page-title {
+			color: #CCC;
+		}
+	}
+
+	nav {
+		ul {
+			li {
+				a {
+					font-size: 1.8rem;
+					font-weight: 700;
+				}
+			}
+		}
+	}
+	
+	padding-top: 2rem;
+}
+
+.portfolio {
+	height: 600px;
+	margin-bottom: 4rem;
+}
+
+footer {
+	a {
+		color: $gray-dark;
+
+		&:hover,
+		&:active,
+		&:visited {
+			color: $gray-dark;
+		}
+	}
+	
+	#boatgame {
+
+	}
+	
+	.col-md-3 {
+		margin-bottom: 3rem; 
+	}
+	
+	h4 {
+		color: $gray-dark;
+		font-size: 1.7rem;
+		margin-bottom: .8rem;
+	}
+
+	h4, #boatgame {
+		border-top: 1px solid $gray-dark;
+		padding-top: 1rem;
+	}
+
+	background-color: $gray-lighter;
+	color: $gray-dark;
+	font-size: 1.5rem;
+	padding: 2rem 0;
+}
+
+@media (max-width: $screen-sm-max) {
+	.portfolio {
+		height: inherit!important;
+		margin-bottom: 4rem;
+	}
+}

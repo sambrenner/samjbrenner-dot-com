@@ -1,0 +1,36 @@
+---
+layout: post
+title: 'Physical Computing Labs: Analog and Digital Inputs'
+date: 2012-09-21 13:09:35.000000000 -04:00
+categories:
+- Physical Computing
+tags:
+- ITP
+- Physical Computing
+- Sensors
+status: publish
+type: post
+published: true
+meta:
+  _edit_last: '1'
+author:
+  login: sambrenner
+  email: samjbrenner@gmail.com
+  display_name: sambrenner
+  first_name: ''
+  last_name: ''
+excerpt: !ruby/object:Hpricot::Doc
+  options: {}
+---
+<p><img class="alignnone size-full wp-image-103" title="P9202066" alt="" src="/assets/P9202066.jpg" width="600" height="450" /></p>
+<p>For this week's Physical Computing labs, we covered two topics: digital inputs and analog inputs. Click through to see the details.</p>
+<p><!--more--></p>
+<p>The analog assignment was to recreate a "luv-o-meter," as found in dive bars across the country. Instead of grip pressure, I used a <a href="http://www.maxbotix.com/documents/MB1010_Datasheet.pdf">sonar rangefinder</a> to detect proximity. This triggered lights on an <a href="http://adafruit.com/products/306">RGB LED Strip</a> (as previously seen in <a href="http://samjbrenner.com/notes/wp-content/uploads/2012/09/PC140094.jpg">"Windows 95 Flying Through Space Screensaver: The Costume"</a>, from the CP+B holiday party) to illuminate as the user approached.</p>
+<p>[ylwm_vimeo width="800" height="450"]49883812[/ylwm_vimeo]</p>
+<p><img class="alignnone size-full wp-image-104" title="P9202071" alt="" src="/assets/P9202071.jpg" width="600" height="450" /></p>
+<p>Here's a closeup of the rangefinder. It's straightforward to use: supply it with 5 volts, ground it, and connect its analog output to the Arduino's analog input. What the Arduino gets is a number from 0 (closest) to around 250 (farthest away). I scale that number from 0-16, for how many lights on the strip should illuminate, and tell the strip to do its thing.</p>
+<p>The digital input lab involved making some sort of "locking" mechanism. I was inspired by this neat little 8-in-1 switch that I picked up at our local electronic parts supplier:</p>
+<p><img class="alignnone size-full wp-image-99" title="P9202076" alt="" src="/assets/P9202076.jpg" width="600" height="450" /></p>
+<p>Using the switch, I built a "lock" where a green LED will only illuminate when the correct code is entered. Users also have the ability to change the code to something of their own choosing. Here's a video of it in action:</p>
+<p>[ylwm_vimeo width="800" height="450"]49882879[/ylwm_vimeo]</p>
+<p>You can see when I change the switch from "00000000" to "11000000," the green LED turns off and the red LED turns on, meaning the code is incorrect. By connecting the circuit on the right side of my breadbord, I enter "set code" mode, and whatever position the switches are in when that circuit is disconnected becomes the new lock code. The security flaws in this are many, but fortunately the illumination of a green LED isn't exactly a bounty worth "lockpicking" for.</p>

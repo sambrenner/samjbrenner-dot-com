@@ -1,0 +1,43 @@
+---
+layout: post
+title: 'Designing the Self: Models and Measuring'
+date: 2012-10-29 03:15:51.000000000 -04:00
+categories:
+- DIY Health
+tags: []
+status: private
+type: post
+published: false
+meta:
+  _edit_last: '1'
+  _oembed_d2472be5434053c5874ab63f3063d429: <iframe width="640" height="480" src="http://www.youtube.com/embed/wzSFA7T-JPM?fs=1&feature=oembed"
+    frameborder="0" allowfullscreen></iframe>
+  _oembed_caa049a47e30167d9bf490948dbde294: <iframe width="640" height="480" src="http://www.youtube.com/embed/wzSFA7T-JPM?feature=oembed"
+    frameborder="0" allowfullscreen></iframe>
+author:
+  login: sambrenner
+  email: samjbrenner@gmail.com
+  display_name: sambrenner
+  first_name: ''
+  last_name: ''
+excerpt: !ruby/object:Hpricot::Doc
+  options: {}
+---
+<p>My final project in DIY Health will be a system whose goal is to help less emotionally-aware individuals (such as myself) to identify, define and understand their emotions. This week I'm exploring similar systems, sharpening my own and considering how it will work.<br />
+<!--more--></p>
+<h2>My System</h2>
+<p>My goal, as stated above, stems from my belief that being aware of emotions and being able to recognize them goes a long way towards achieving peace of mind and emotional stability. My system will work by asking the user through their smartphone to input what they perceive to be their current emotional state (sensor). It will present the user with other options to consider. It will learn from the user to best understand their own emotional trends, yet it will include a degree of randomness to ensure the system isn't simply telling the user how they feel (comparator). It will offer definitions for all presented emotions, offer suggestions on how to manage those emotions and  also log emotions over time and display them back to the user (actuator). By doing all of these things, they system will allow users to better understand their emotional state and act on emotions as they bubble up into consciousness.</p>
+<h2>Competitive Analysis</h2>
+<p>Current tools for emotion tracking fall in to two categories: those that require the user to make judgments on their emotions and those that attempt to infer emotions from another form of input. One example of a tool that asks for user input is <a href="http://www.mappiness.org.uk/">Mappiness</a>, an iPhone app. Mappiness is the embodiment of a system whose goal is to map happiness across the UK, and it achieves this by asking users to rate feelings like happiness, relaxation and awakedness using a slider.</p>
+<p><img class="alignnone size-full wp-image-180" title="mzl.yvbpgvkp.320x480-75" src="/assets/mzl.yvbpgvkp.320x480-75.jpeg" alt="" width="270" height="480" /> <img title="mzl.yxcjytzw.320x480-75" src="/assets/mzl.yxcjytzw.320x480-75.jpeg" alt="" width="270" height="480" /></p>
+<p>The app pings users once or more times a day to ask them to analyze their current happiness this way. The output of the system is a visual representation of the user's happiness over time. I don't have an iPhone so I can't fully explore its features - screenshots of the app suggest it also has a component to track with whom the user is happiest around, which is an interesting way to give the user feedback.</p>
+<p>For their purposes, the sliders work well as a form of input. My system might not benefit from using this method, since Mappiness is only concerned with three easily-understood emotions and I will be working with more complex, harder-to-define emotions. Mappiness's line graph output doesn't provide a great deal of feedback to the user. Time, as opposed to location or social activity, might not be the best measurement to put happiness against. My system's main output will be the definition of the emotion, but I would also like to provide some sort of visualization as a secondary output. "Mood vs time" might be an option but its meaning is limited unless the user can also see what about the time causes shifts in mood. If my happiness spikes at 5 PM, why is that? I think a successful visual output should answer that question. Mappiness also has bigger-picture visualizations (<a href="http://www.mappiness.org.uk/maps/">maps</a> and <a href="http://www.mappiness.org.uk/meters/">graphs</a>) that, while they aren't a part of the individual user's system, suffer from the same downfall. I can see that the UK's mood rose steadily a few days ago, but why was that?</p>
+<p>An alternate approach to measuring emotions is through physical inference. <a href="http://www.affectiva.com/">Affectiva</a>, a company spun out of MIT's Media Lab, uses a combination of galvanic skin response and facial tracking to take an educated guess as to the user's mood.</p>
+<p>http://www.youtube.com/watch?v=wzSFA7T-JPM</p>
+<p>I like the idea of representing emotions on a two dimensional graph (positive/negative vs excited/calm). But for my system to be successful, I want the user to explore the definitions of emotions to make their own judgement on how they feel. Having a computer tell the user that it thinks they feel anxious would not achieve this goal. For my system, I think user input is a must-have. Also I'm not sure how much I trust technology like this. First of all, facial tracking isn't viable for long-term emotional tracking as it requires a camera pointed at the user. Secondly, facial tracking can't be all that reliable. I know personally that the emotion I convey to others through my face isn't necessarily how I'm actually feeling. Culturally, there's plenty to back this up: the idea of a "game face" or the saying "turn that frown upside-down!" show that facial expressions for the benefit of others as much as they are for you.</p>
+<h2>Methods of Measurement</h2>
+<p>I wanted to understand how to best categorize emotions before understanding them. Some research led me to this <a href="http://books.google.com/books?id=jV5QVgM6Me8C&amp;lpg=PP1&amp;pg=PA34#v=onepage&amp;q&amp;f=false">tree diagram</a> from W. Parrott's <em>Emotions in Social Psychology</em>. He proposes six primary emotions: love, joy, surprise, anger, sadness and fear. Each has a set of secondary and tertiary emotions associated with it. With this, I'm considering three ways to measure emotions.</p>
+<p>The first way would be true to the tree nature of Parrott's classification. The six primary emotions would be listed. Selecting on one would expose its secondary emotions. Selecting one of those would expose the tertiary emotions. At any point along the way, the user would be able to select a listed emotion as the one that they are currently feeling. It is very linear and open-ended, allowing the user to learn definitions for as many emotions as possible and not hiding any options.</p>
+<p>The second way is the graph as shown in the Affectiva video. Users would estimate where they currently fall on the graph, where the X axis is negative to positive, and the Y axis is calm to excited. When they select a location, a list of corresponding emotions shows up, and the user selects a choice from there. It presents a good degree of variety but immediately lets the user narrow down their choices, making the emotion choosing process easier.</p>
+<p>The third way would be a randomly generated word cloud of emotions. The user picks which one is closest to their state and the cloud is refreshed to show still random, but more similar emotions. This is repeated until the user selects an emotion. It has the ability to learn from the user and tailor the initial word cloud to emotions they generally feel at the chosen time/location. It would need to contain an element of randomness though.</p>
+<p>Another thing to consider is when to measure. I think a good opportunity to do this would be at a phone's lock screen. While the iPhone doesn't allow for modification of the lock screen, it is available on Android. At random points throughout the day, users would be asked to complete the emotional recognition process instead of entering their phone's password as they normally do. Push notifications is an obvious (yet effective) choice as well. A more novel approach might be to replace ads on other apps and websites with reminders, though that might be too easily ignored.</p>

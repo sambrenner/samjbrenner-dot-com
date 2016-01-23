@@ -1,0 +1,37 @@
+---
+layout: post
+title: Open Source Soundboard for Live Performance
+date: 2014-06-16 03:07:26.000000000 -04:00
+categories:
+- Experiments
+tags:
+- Experiments
+- JavaScript
+- node.js
+- Project Write-Up
+status: publish
+type: post
+published: true
+meta:
+  _edit_last: '1'
+author:
+  login: sambrenner
+  email: samjbrenner@gmail.com
+  display_name: sambrenner
+  first_name: ''
+  last_name: ''
+excerpt: !ruby/object:Hpricot::Doc
+  options: {}
+---
+<p><img class="alignnone size-medium wp-image-683" alt="Screen Shot 2014-06-15 at 10.40.02 PM" src="/assets/Screen-Shot-2014-06-15-at-10.40.02-PM-800x529.png" width="800" height="529" /></p>
+<p>Last semester, I needed a bare-bones soundboard to cue up and play sound clips for <a href="/notes/aarplane/">AARPlane</a>, the midterm performance of my Puppets class at ITP. Not knowing my way around pro audio software (which I'm sure makes this a simple task) and seeing that the current landscape of online soundboards consists of awfully-designed holdovers from the days of Flash, I decided to build my own. It's far from full-featured - currently it will just play, pause and replay sound clips - but if you need to need a "world's-dumbest"-style soundboard, I think you should give this a try.</p>
+<p>Getting it up and running is straightforward-ish (and definitely needs to be straightforward-er):</p>
+<ol>
+<li>Install <a href="http://nodejs.org/">NodeJS</a></li>
+<li><a href="https://github.com/sambrenner/soundboard/archive/master.zip">Download the code from GitHub</a></li>
+<li>Create a [cci]sounds[/cci] folder inside of [cci]public[/cci] and place all of your <a href="http://en.wikipedia.org/wiki/HTML5_Audio#Supported_audio_codecs">web-encoded</a> audio files in it (mp3s work fine)</li>
+<li>Open the project folder in Terminal and run [cci]npm install[/cci] followed by [cci]node app[/cci]</li>
+<li>Point your browser to <a href="http://127.0.0.1:3000">127.0.0.1:3000</a></li>
+<li>Click a sound to play it! Click again to pause!</li>
+</ol>
+<p>All of the source code is available on <a href="https://github.com/sambrenner/soundboard">GitHub</a>, along with my list of <a href="https://github.com/sambrenner/soundboard/issues">issues</a> (I'm accepting pull requests!).</p>

@@ -1,0 +1,34 @@
+---
+layout: post
+title: 'Intro to the Asterisk Dialplan: Phoneoke'
+date: 2013-02-11 17:46:25.000000000 -05:00
+categories:
+- Redial
+tags:
+- Asterisk
+- ITP
+- Redial
+status: publish
+type: post
+published: true
+meta:
+  _edit_last: '1'
+  enclosure: "http://samjbrenner.com/notes/wp-content/uploads/2013/02/documentation.mp3\r\n1067884\r\naudio/mpeg\r\n"
+author:
+  login: sambrenner
+  email: samjbrenner@gmail.com
+  display_name: sambrenner
+  first_name: ''
+  last_name: ''
+excerpt: !ruby/object:Hpricot::Doc
+  options: {}
+---
+<p>In <a href="http://www.itp-redial.com/class/">Redial</a>, we've started working with Asterisk to create our own phone systems. In class, we share a common phone number and each have our own extension, which, when dialed, runs our code. After looking through the <a href="http://www.voip-info.org/wiki/view/Asterisk+-+documentation+of+application+commands">available Asterisk commands</a>, I decided I wanted to have the caller record their voice and have Asterisk play it back, except mixed with a backing track (in this case, the chorus to <a href="https://www.youtube.com/watch?v=8WEtxJ4-sh4">TLC's Waterfalls</a>). Here's what that sounds like (with apologies to TLC):</p>
+<p>[audio src="http://samjbrenner.com/notes/wp-content/uploads/2013/02/documentation.mp3"]</p>
+<p><!--more--></p>
+<p>After the caller records his voice, I use Asterisk's [cci]System[/cci] command to run <a href="http://sox.sourceforge.net/">SoX</a>, a command line tool that mixes the caller's voice with the backing track and converts it to the correct format for playback. A few issues I ran in to concerning playback:</p>
+<ul>
+<li><span style="line-height: 13px;" data-mce-mark="1">Asterisk's [cci]Playback[/cci] command requires no file extension on the end. I was adding .wav and this caused errors.</span></li>
+<li>Despite both the caller's recording and my backing track being in the correct format for playback, the mixed file wasn't and playback would fail. After mixing the files with [cci]sox -m /path/to/file1.wav /path/to/file2.wav /path/to/mix.wav[/cci], I then had to run [cci]sox /path/to/mix.wav -t raw -r 8000 -e signed-integer -b 16 -c 1 /path/to/remix.sln[/cci] to ensure that the audio file's properties met Asterisk's requirements (8000 Hz, 16 bit, etc). Those two commands could probably be combined into one and I will look in to that as this project continues.</li>
+</ul>
+<p>Since the application will probably be short-lived as I continue to experiment with it, I'm going to leave the phone number and extension out of this post and save it for later (though you can probably find it by following the right links...).</p>

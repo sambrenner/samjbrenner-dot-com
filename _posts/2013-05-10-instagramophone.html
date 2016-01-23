@@ -1,0 +1,61 @@
+---
+layout: post
+title: Instagramophone
+date: 2013-05-10 20:20:54.000000000 -04:00
+categories:
+- ITP
+- Redial
+tags:
+- Asterisk
+- ITP
+- Project Write-Up
+- Redial
+- Ruby
+status: publish
+type: post
+published: true
+meta:
+  _edit_last: '1'
+author:
+  login: sambrenner
+  email: samjbrenner@gmail.com
+  display_name: sambrenner
+  first_name: ''
+  last_name: ''
+excerpt: !ruby/object:Hpricot::Doc
+  options: {}
+---
+<p>Instagram takes your photos and makes them look bad, because vintage is trendy. Instagramophone imagines what would happen if phone calls worked the same way. My final project for Redial, Instagramophone* is a service that lets a user choose from five different vintage audio filters to apply to their voice. You can try it out for yourself by calling (360) 215-1975 (edit: I took down the server that ran this, so the number no longer works).</p>
+<p>[ylwm_vimeo width="800" height="450"]65925832[/ylwm_vimeo]</p>
+<p>Callers are asked to choose one of five different filters for their voice, all inspired by vintage sound media. The choices are a <a href="http://en.wikipedia.org/wiki/Phonograph_cylinder">wax cylinder</a>, an <a href="http://en.wikipedia.org/wiki/LP_record">LP record</a>, an <a href="http://en.wikipedia.org/wiki/Fm_radio">FM radio</a>, a <a href="http://en.wikipedia.org/wiki/Compact_cassette">cassette tape</a> and <a href="http://en.wikipedia.org/wiki/Television_encryption">scrambled porn</a>. After recording their message, the effect is applied and played back. Callers then have the option of uploading their sound to <a href="https://soundcloud.com/instagramophone">Soundcloud</a>.</p>
+<p>The application was built in <a href="http://www.asterisk.org/">Asterisk</a>, with <a href="http://sox.sourceforge.net/">SoX</a> to do the audio processing and Ruby to upload to Soundcloud. When a user records their message, Asterisk sends the recorded file in to a shell script that does the necessary slicing and dicing to create my desired effect. The cassette tape filter, for example, looks like this:</p>
+<p>[cc lang="bash"]</p>
+<p>#split the source recording and apply bends up and down<br />
+sox $1 /projects/instagramophone/temp/$tempConversionDir/bend.wav trim 0 1 bend .25,300,.25  .25,-300,.25 : newfile : restart</p>
+<p>#recombine the split files<br />
+sox /projects/instagramophone/temp/$tempConversionDir/*.wav -c1 /projects/instagramophone/temp/$tempConversionDir/mixdown.wav</p>
+<p>#add cassette tape sound effects to beginning and end<br />
+sox -c1 /projects/instagramophone/static/wav/cassette.wav /projects/instagramophone/temp/$tempConversionDir/mixdown.wav -c1 /projects/instagramophone/static/wav/cassetteend.wav -r 8000 -c1 /projects/instagramophone/messages/altered/$sourcefile</p>
+<p>[/cc]</p>
+<p>The scrambled porn filter is a little more complicated. After watching <a href="https://www.youtube.com/watch?v=loDIbTVunUo">this clip</a> of scrambled pay-per-view (SFW), I wanted to make my filter cut the audio in and out rapidly. I did that by splitting the recorded file in to many tiny chunks and alternating the volume up and down:</p>
+<p>[cc lang="bash"]</p>
+<p>#split the file in to 0.1 second chunks<br />
+sox $1 /projects/instagramophone/temp/$tempConversionDir/trim.wav trim 0 0.1 : newfile : restart</p>
+<p>declare -i counter=0</p>
+<p>#loop through all the chunks<br />
+for i in /projects/instagramophone/temp/$tempConversionDir/*.wav; do<br />
+counter=$counter+1<br />
+filename=${i##*/}</p>
+<p>#alternate high and low volume<br />
+if [[ $counter%2 -eq 0 ]]; then<br />
+sox -v2.0 $i /projects/instagramophone/temp/$tempConversionDir/$tempEffectDir/$filename<br />
+else<br />
+sox -v0.1 $i /projects/instagramophone/temp/$tempConversionDir/$tempEffectDir/$filename<br />
+fi<br />
+done</p>
+<p>#recombine and add scrambled porn background<br />
+sox /projects/instagramophone/temp/$tempConversionDir/$tempEffectDir/*.wav /projects/instagramophone/temp/$tempConversionDir/mixdown.wav<br />
+sox -m -v1.5 /projects/instagramophone/temp/$tempConversionDir/mixdown.wav -v0.8 /projects/instagramophone/static/wav/scrambledporn.wav -r 8000 -c1 /projects/instagramophone/messages/altered/$sourcefile</p>
+<p>[/cc]</p>
+<p>Please call it up and leave a message!</p>
+<p>*I searched the name and found that a similar project already exists with the name Instagramophone (<a href="http://instagramophone.info/">link</a>, <a href="https://github.com/dinalamdany/instagramophone/">GitHub</a>), so I hope they don't mind me using it as well. Both our projects use SoX to apply effects to the voice, but that's about as much as they have in common.</p>

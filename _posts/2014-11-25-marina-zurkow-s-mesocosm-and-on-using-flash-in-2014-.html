@@ -1,0 +1,37 @@
+---
+layout: post
+title: Mesocosm
+date: 2014-11-25 03:41:50.000000000 -05:00
+dateline: 2014-Present
+client: Marina Zurkow
+categories:
+- Project Writeup
+tags:
+- Featured
+- Flash
+type: post
+description: |
+    Mesocosm is a series of animated landscapes that develop and change over time. I built the platform which is used to position, schedule and synchronize hundreds of animated actors, backgrounds and environmental effects. Works in the Mesocosm series have been exhibited at the Museum of Biblical Art's [_Back to Eden_](http://mobia.org/exhibitions/back-to-eden#slideshow1), the São Paolo Urban Digital Festival, Art Basel Miami Beach and at [Bitforms Gallery](http://www.bitforms.com).
+
+    You can read more about Mesocosm on [Marina Zurkow's website](http://www.o-matic.com/play/friend/mesocosmTS/).
+thumbnail: /assets/MesoTS-detail.jpg
+---
+
+<p>This past week I wrapped up work on <em>Mesocosm</em>, a platform for creating multi-channel, algorithmically-assisted dynamic animations, for <a href="http://www.o-matic.com/">Marina Zurkow</a>, an artist and my former professor at ITP. Marina has been creating <em>Mesocosm</em> pieces <a href="http://www.o-matic.com/play/friend/mesocosmUK/index.html">since 2011</a> and brought me on earlier this year to make some alterations to the project's codebase for its third iteration, <a href="http://www.o-matic.com/play/friend/mesocosmTS/"><em>Mesocosm (Times Square, NY)</em></a>, in advance of its premiere at the <a href="http://www.mobia.org/">Museum of Biblical Art</a>'s <a href="http://mobia.org/exhibitions/back-to-eden#slideshow1"><em>Back to Eden</em></a> exhibit. Anticipating her desire to create more <em>Mesocosm </em>pieces in the future and wishing to facilitate that process, we decided to re-code the project from scratch. In this blog post, I will examine our intentions in rebuilding the piece, discuss some technical details of how it was accomplished (i.e. "why it's 2014 and I'm building something in Flash").</p>
+<p><a href="http://samjbrenner.com/notes/wp-content/uploads/2014/11/MesoTS1.jpg"><img class="alignnone size-medium wp-image-713" alt="MesoTS" src="/assets/MesoTS1-800x148.jpg" width="800" height="148" /></a></p>
+<p>The purpose of the code in the <em>Mesocosm</em> pieces is fairly straightforward: it selects and displays animations based on probabilities. Those probabilities are set based on hours of the day and months of the year. Time is kept by a clock which can advance at any rate desired (Marina generally runs <em>Mesocosm</em> pieces so that one year in the animation lasts just over 6 days in the real world). All of this is configured via XML files: one for the clock and one more for every channel of animation.</p>
+<p>The aim of starting from scratch was to make <em>Mesocosm</em> more configurable. The code written for the first piece, <em>Mesocosm (Northumberland, UK)</em> and contained many references to aspects of the animation that didn't persist into subsequent versions. Furthermore, Marina lacked the ability to configure many of the piece's variables such as phases of the day, the speed of the clock and the arrangement of layers without going in to the source code, which introduced bugs into the project. In starting from scratch, I intended to move as many variables as possible into the XML, where Marina could comfortably adjust the values.</p>
+<p><img class="alignnone size-full wp-image-715" alt="MesoTS-detail" src="/assets/MesoTS-detail.jpg" width="800" height="514" /></p>
+<p>The short story of my relationship with Flash and ActionScript follows. In my undergraduate years at RIT, Flash and ActionScript 3 provided the ideal framework to simultaneously teach design and interaction to us art students, and was also thoroughly embraced by the advertising industry (fount of arts jobs that it is). My semesters (quarters actually) at school and summer internships consisted of one thing: Flash microsites. Starting a new project every two months and focusing all of one's attention on it is a spectacular way to get good at something quickly, and my resulting portfolio of Flash work (whose re-animation I will discuss in a future post) landed me a job in the advertising biz. But of course, Flash's days were numbered thanks mainly to the iPhone's lack of support for it, and sometime towards the end of 2010, after a year and a half of making Flash microsites full-time, my active project was quietly cancelled and my days coding ActionScript were over.</p>
+<p>This was a valuable lesson for me as a young developer in the foolishness of thinking one programming language to be anything more than just a tool at my disposal, which was a good lesson to get out of the way. It also caused me to reflect on what I enjoyed about Flash/ActionScript and what its strengths were relative to the new-to-me languages and platforms I was now working with on a daily basis in their places.</p>
+<p>Its weaknesses as a platform are obvious. Besides the bad reputation it got for awful user interfaces (which, as is often confirmed by web standards sites, is more a problem of the tool user than the tool), you have the lack of iPhone/iPad support and a pretty lousy experience on Android, where it was once supported. There are the dead ends (or, if not dead ends then at least sketchy, narrowing paths) for accessibility and SEO. And, being an Adobe Creative Suite product, it costs money.</p>
+<p>But nobody ever said every Flash project had to live on the web, and the one thing it did get right has nothing to do with the internet. It is programmatic animation. The interface provided by Flash, centered around the MovieClips, timelines and keyframes, is simple. The interactive layer is easily integrated and ActionScript is a language that, like its ECMAScript cousin JavaScript, is flexible and can be as smart or as dumb as you need it to be. On the two projects I've worked on post-ad-industry that required heavy animation by a non-developer and then a layer of interaction or probability on top of that, the answer was Flash.</p>
+<p>In the case of Mesocosm it helped seal the deal that Marina already had all of her animation assets in Flash, and though we did discuss a canvas implementation of the project</p>
+<p>For example, given a clock configuration file containing this:</p>
+<p>[cc type="xml"]<br />
+&lt;day_phases&gt;<br />
+[/cc]</p>
+<p>and a channel configuration file containing this:</p>
+<p>[cc type="xml"]</p>
+<p>[/cc]</p>
+<p>the running animation will play the squirrel animation on layer 30 one out of every 10 times the clock enters "dawn" (between 4am and 9am) during the month of February and 1 out of every 2 times during March.</p>

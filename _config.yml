@@ -1,0 +1,19 @@
+# Site settings
+title: "Sam Brenner"
+email: sam@samjbrenner.com
+description: >
+  The blog of Sam Brenner, Interactive Media Developer at the
+  Cooper Hewitt, Smithsonian Design Museum.
+baseurl: "" # the subpath of your site, e.g. /blog/
+url: "http://samjbrenner.com" # the base hostname & protocol for your site
+github_username:  sambrenner
+permalink: "blog/:title"
+include: ['_pages']
+
+gems: ['jekyll-paginate']
+
+paginate: 8
+paginate_path: "/blog/page:num/"
+
+# Build settings
+markdown: kramdown

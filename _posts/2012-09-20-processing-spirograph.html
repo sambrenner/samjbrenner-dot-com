@@ -1,0 +1,58 @@
+---
+layout: post
+title: Processing Spirograph
+date: 2012-09-20 07:50:58.000000000 -04:00
+categories:
+- Processing
+tags:
+- Experiments
+- Processing
+status: publish
+type: post
+published: true
+meta:
+  _edit_last: '1'
+author:
+  login: sambrenner
+  email: samjbrenner@gmail.com
+  display_name: sambrenner
+  first_name: ''
+  last_name: ''
+excerpt: !ruby/object:Hpricot::Doc
+  options: {}
+---
+<p>I was showing some of my <a href="http://www.processing.org">Processing</a> experiments to classmates here at ITP and it was asked - nay, demanded - that I post about them on my blog. So I'll kick things off with this little <a href="http://en.wikipedia.org/wiki/Spirograph">Spirograph</a>-inspired play-thing, which creates some pretty beautiful objects with a relatively small amount of code:</p>
+<p><canvas data-processing-sources="/notes/wp-content/uploads/pde/spirograph_lines.pde"></canvas></p>
+<p>Click through for the code and an explanation of what's going on here.</p>
+<p><!--more--></p>
+<p>[cc lang="java" file="pde/spirograph_lines.pde"]</p>
+<p>[/cc]</p>
+<p>The code is up on <a href="https://github.com/sambrenner/spirograph">GitHub</a>, and I've added it above for reference. When I began trying to recreate a Spirograph in Processing, I figured there has to be a formula to describe these shapes. And sure enough, there is! I came across <a href="http://mathworld.wolfram.com/Hypotrochoid.html">this post at Wolfram Mathworld</a> about the shapes, properly known as hypotrochoids (definitely click that link; their animated gifs will make everything that follows much easier to visualize). That site describes the shapes straightforwardly:</p>
+<blockquote><p>A hypotrochoid is a roulette traced by a point <strong>P</strong> attached to a circle of radius <strong>b</strong> rolling around the inside of a fixed circle of radius <strong>a</strong>, where <strong>P</strong> is a distance <strong>h</strong> from the center of the interior circle.</p></blockquote>
+<p>Consider how Spirographs work. A pen is placed in a hole in a small plastic disc. You move that disc around the inside of a larger circle and the pen traces its path. Observe this picture of a small Spirograph set (source: <a href="http://en.wikipedia.org/wiki/File:Spirograph.jpg">Wikipedia</a>).</p>
+<p><img class="size-full wp-image-87 alignnone" title="spirographset" src="/assets/spirographset.jpg" alt="" width="600" height="290" /></p>
+<p>All the holes in the inner pieces (the blue, red and turquoise discs) determine <strong>h</strong>, the distance of point <strong>P</strong> from the center of the inner piece. The different sizes of the inner pieces reflect variations of the radius <strong>b</strong>, and the different sizes of outer pieces (the large holes with teeth, one on the left and one on the right) reflect variations of the radius <strong>a</strong>. Processing allows us to take this one step further: since we are not relying on a mechanical system to draw our shapes, we can do things like move point <strong>P</strong> outside the inner piece, or make the inner piece bigger than the circle it's rotating inside. I've also tied some of the equation's values to the user's mouse position, allowing us to see all different kinds of shapes without having to get out a new piece from the Spirograph kit.</p>
+<p>At the core of all this is a simple equation that I've found myself coming back to frequently with Processing. It's the equation to find the coordinates of a point on the edge of a circle, given the radius of the circle and the angle at which to find the point.</p>
+<p>[cc lang="java"]</p>
+<p>x=r*cos(t);<br />
+y=r*sin(t);</p>
+<p>[/cc]</p>
+<p>Here, <strong>t</strong> is the angle, in radians, at which to find the point. And <strong>r</strong> is the radius of the circle. If you were to run this code in a loop from 0 to 2π (360 degrees in radians) and draw a dot at each point, you would see a circle formed.</p>
+<p>Now look at the formula for the hypotrochoid:</p>
+<p>[cc lang="java"]</p>
+<p>xpos=(a-b)*cos(t)+h*cos(((a-b)/b)*t);<br />
+ypos=(a-b)*sin(t)+h*sin(((a-b)/b)*t);</p>
+<p>[/cc]</p>
+<p>You can see some similarities here. Instead of dealing with a constant center point, however, now we're dealing with one that moves. So whereas before we were just multiplying the sine and cosine of the angle by <strong>r</strong>, now we're multiplying them by <strong>a</strong>-<strong>b</strong>, or one radius minus the other. That gives us the location of the center point of the inner circle. To this, we still have to add the pen's position, and at this point I must apologize as we begin to reach the limits of my amateur mathematical knowledge. I'll do my best to explain it and encourage anyone who knows better to correct me via email (you can find my email address on the <a href="http://www.samjbrenner.com/about">About</a> page). Before, <strong>t</strong> was all we needed to plug in because we're going around the outer circle and thus the angle progresses sequentially from 0 to 360 degrees. The angle of the pen to its center point is also going from 0 to 360 sequentially, but because it's additionally rotating around the outer circle, its rotation is compounded. Somehow - and this I don't really understand - multiplying <strong>t</strong> by (<strong>a</strong>-<strong>b</strong>)/<strong>b</strong> solves this.</p>
+<p>"But wait!" I hear you say. "I read your source code, and you're not even using this!" You are correct. By means of a happy accident, I am using the following formula:</p>
+<p>[cc lang="java"]</p>
+<p>xpos = (a-b)*cos(t)+h*cos(a*t);<br />
+ypos = (a-b)*sin(t)+h*sin(a*t);</p>
+<p>[/cc]</p>
+<p>Notice the much less complicated math going on the final part of each line. What this appears to do is reduce the level of detail in the hypotrochoid. Instead of many smooth points, it jumps around the canvas more, though it ultimately forms a complete path. This results in more straight lines, which sometimes create some very cool shapes that wouldn't be possible on a regular Spirograph. It also lets me complete the path with only 360 iterations of the loop. With the original formula, 360 iterations only results in the equivalent of one revolution of the inner circle around itself, forming an incomplete shape. To get a complete shape, I had to run the code through tens of thousands of iterations, which bogged down my computer. After a bit of messing around, I found the results of just multiplying just <strong>a</strong> and <strong>t</strong> to be satisfactory. And again, the math to this is beyond my grasp. Sorry.</p>
+<p>Finally, I'd like to share a little trick with you. There's something else going on in the code besides all the math, and of course I'm talking about that bad ass rainbow color scheme. And it's really easy to implement as well! If you look in my setup function, you will find this line:</p>
+<p>[cc lang="java"]</p>
+<p>colorMode(HSB,360);</p>
+<p>[/cc]</p>
+<p>This does two things. One, it changes the color mode from the default RGB to HSB. HSB stands for "Hue, Saturation, Brightness" and is another way of determining color values. The second parameter, 360, changes the scale of values. Whereas in RGB we normally think of values in terms of 0 to 255, now we're just stretching it out to be 0 to 360. I chose 360 because of how many times the hypotrochoid line-drawing code runs. By the time it completes its iterations, it will be back at the color at which it started, making a smooth transition. Before drawing each line, I call the stroke function and instead of passing in the parameters as R, G and B, I pass them in as H, S and B. Saturation and brightness remain at their maximum values of 360, and hue goes from 0 (red) to 360 (also red, but having passed through the rest of the spectrum).</p>
+<p>Alright. That's it. I think the rest of my code is pretty self explanatory so I won't go in to detail on it unless someone asks. Thanks for reading!</p>

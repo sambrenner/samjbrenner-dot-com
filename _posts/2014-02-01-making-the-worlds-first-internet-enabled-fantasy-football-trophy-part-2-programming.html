@@ -1,0 +1,184 @@
+---
+layout: post
+title: 'Making the World''s First Internet-Enabled Fantasy Football Trophy, Part 2:
+  Programming'
+date: 2014-02-01 16:48:24.000000000 -05:00
+categories:
+- ITP
+- Materials
+tags:
+- Arduino
+- Arduino Yun
+- Fabrication
+- ITP
+- Materials and Building Processes
+- Project Write-Up
+- Python
+- Trophy of the Future
+status: publish
+type: post
+published: true
+meta:
+  _edit_last: '1'
+author:
+  login: sambrenner
+  email: samjbrenner@gmail.com
+  display_name: sambrenner
+  first_name: ''
+  last_name: ''
+excerpt: !ruby/object:Hpricot::Doc
+  options: {}
+---
+<p><img class="alignnone size-medium wp-image-538" alt="P1090435" src="/assets/P1090435-800x460.jpg" width="800" height="460" /></p>
+<p>[ylwm_vimeo width="800" height="450"]85608876[/ylwm_vimeo]</p>
+<p>In <a href="/notes/making-the-worlds-first-internet-enabled-fantasy-football-trophy-part-1-fabrication">part 1</a>, I walked through the fabrication process of the Trophy of the Future. If you haven't read that yet, go check it out! In this post, part 2, I'm going to discuss the technology behind the trophy.</p>
+<p><!--more--></p>
+<p>At the heart of it all is an <a href="http://arduino.cc/en/Main/ArduinoBoardYun?from=Main.ArduinoYUN">Arduino Yún</a>, the first Arduino board to also include a Linux processor. The processor runs a <a href="https://github.com/sambrenner/future-trophy/blob/master/trophy.py">Python script </a>that collects the names of the champions of my fantasy football league, the league's standings and NFL news via the Yún's built-in WiFi chip and scrolls across a 40x8 LED matrix. The LEDs are controlled on the software side by the <a href="http://parola.codeplex.com/">Parola</a> library and on the hardware side by 5 8x8 LED modules, each with its own <a href="http://playground.arduino.cc/Main/MAX72XXHardware">MAX7219</a> chip. When the Yún is plugged in, the Arduino processor asks the Linux processor to run the python script, which returns the next line for the LEDs to display. Once the line is finished scrolling, Arduino again asks for the next line, and this continues... forever!</p>
+<p>Here's the Python:</p>
+<p>[cc lang="python"]<br />
+from sys import argv<br />
+import os<br />
+import feedparser<br />
+import json<br />
+import urllib<br />
+import apikey</p>
+<p>trophy_data_path = 'http://www.samjbrenner.com/projects/trophy/trophy.json'<br />
+nfl_news_path = ''<br />
+nfl_news_intro = ''<br />
+league_api_path = ''<br />
+league_standings_intro = ''<br />
+league_api_collection_names = []<br />
+news_stories_max = 0<br />
+message_buffer_path = 'message_buffer.txt'<br />
+offline_data_path = 'offline_data.txt'</p>
+<p>def get_next_message():<br />
+  message_buffer = open(message_buffer_path, 'a+')<br />
+  message_buffer.seek(0)</p>
+<p>  # if file is empty, refill buffer<br />
+  if message_buffer.readline() == '':<br />
+    try:<br />
+      get_trophy_data()</p>
+<p>      with open(offline_data_path) as offline_data:<br />
+        message_buffer.writelines("%s" % item for item in offline_data.readlines()[1:])</p>
+<p>      message_buffer.writelines("%s\n" % item for item in get_league_data())<br />
+      message_buffer.writelines("%s\n" % item for item in get_nfl_news())</p>
+<p>    except IOError as e:<br />
+      with open(offline_data_path) as offline_data:<br />
+        message_buffer.writelines("%s" % item for item in offline_data.readlines()[1:])</p>
+<p>  # get first line<br />
+  message_buffer.seek(0)<br />
+  next_message = message_buffer.readline()</p>
+<p>  # replace file with all lines except for the first line<br />
+  remaining_lines = message_buffer.readlines()<br />
+  message_buffer.seek(0)<br />
+  message_buffer.truncate()<br />
+  message_buffer.writelines("%s" % item for item in remaining_lines)<br />
+  message_buffer.close()</p>
+<p>  print next_message<br />
+  return next_message</p>
+<p># network functionality<br />
+def get_trophy_data():<br />
+  global nfl_news_path, nfl_news_intro, news_stories_max, league_api_path, league_api_collection_names, league_standings_intro</p>
+<p>  json_response = urllib.urlopen(trophy_data_path)<br />
+  data = json.loads(json_response.read())</p>
+<p>  nfl_news_path = data['nfl_news_path']<br />
+  nfl_news_intro = data['nfl_news_intro']<br />
+  news_stories_max = data['news_stories_max']<br />
+  league_api_path = data['league_api_path'].replace('API_KEY', apikey.value)<br />
+  league_api_collection_names = data['league_api_collection_names']<br />
+  league_standings_intro = data['league_standings_intro']</p>
+<p>  store_offline_data(data)</p>
+<p>def get_nfl_news():<br />
+  nfl_feed = feedparser.parse(nfl_news_path)</p>
+<p>  titles = [nfl_news_intro]</p>
+<p>  for entry in nfl_feed.entries[:news_stories_max]:<br />
+    titles.append(entry.title)</p>
+<p>  return titles</p>
+<p>def get_league_data():<br />
+  json_response = urllib.urlopen(league_api_path)<br />
+  data = json.loads(json_response.read())</p>
+<p>  standings = [league_standings_intro]</p>
+<p>  for collection_name in league_api_collection_names:<br />
+    data = data[collection_name]</p>
+<p>  for player in sorted(data, key=lambda x:int(x['rank'])):<br />
+    standings.append("%s: %s, %s (%s)" % (player['rank'], player['name']['text'], player['record'], player['streak']))</p>
+<p>  return standings</p>
+<p># file i/o<br />
+def store_offline_data(data):<br />
+  offline_data = open(offline_data_path, 'w')</p>
+<p>  offline_data.write("%s\n" % data['offline_warning'])</p>
+<p>  for line in data['intro_message']:<br />
+    offline_data.write("%s\n" % line)</p>
+<p>  for champion in data['champions']:<br />
+    offline_data.write("%s: %s, %s\n" % (champion['year'], champion['owner'], champion['teamname']))</p>
+<p>  offline_data.close()</p>
+<p># instructions<br />
+if len(argv) > 1:<br />
+  if argv[1] == 'nextmsg':<br />
+    get_next_message()<br />
+  else:<br />
+    print 'Please supply a valid command.'<br />
+else:<br />
+  print 'Please supply a command.'<br />
+[/cc]</p>
+<p>And here's the Arduino code:</p>
+<p>[cc lang="c"]<br />
+#include <md_parola.h><br />
+#include <md_max72xx.h><br />
+#include <spi.h><br />
+#include
+<process.h>
+<p>//arduino pins<br />
+#define	MAX_DEVICES 5<br />
+#define	CLK_PIN 10<br />
+#define	DATA_PIN 8<br />
+#define	CS_PIN 9</p>
+<p>//parola<br />
+MD_Parola scroller = MD_Parola(DATA_PIN, CLK_PIN, CS_PIN, MAX_DEVICES);<br />
+MD_Parola::textEffect_t	scrollEffect = MD_Parola::SCROLL_LEFT;<br />
+uint8_t	frameDelay = 100;</p>
+<p>void setup() {<br />
+  initScroller();<br />
+  Bridge.begin();<br />
+  scrollNextMessage();<br />
+}</p>
+<p>void loop() {<br />
+  if (scroller.displayAnimate()) {<br />
+    scrollNextMessage();<br />
+  }<br />
+}</p>
+<p>void initScroller() {<br />
+  scroller.begin();<br />
+  scroller.displayClear();<br />
+  scroller.displaySuspend(false);</p>
+<p>  scroller.displayScroll("loading...", MD_Parola::LEFT, scrollEffect, frameDelay);<br />
+}</p>
+<p>void scrollNextMessage() {<br />
+  Process process;<br />
+  String nextMessage = "";</p>
+<p>  process.runShellCommand("python /root/trophy/trophy.py nextmsg");<br />
+  while(process.running());</p>
+<p>  while(process.available()) {<br />
+    nextMessage += (char)process.read();<br />
+  }</p>
+<p>  char msg[nextMessage.length()];<br />
+  nextMessage.toCharArray(msg, nextMessage.length() - 1);</p>
+<p>  scroller.displayScroll(msg, MD_Parola::LEFT, scrollEffect, frameDelay);<br />
+}</p>
+<p>[/cc]</p>
+<p>The reason I went with an Arduino over a similar board like the <a href="http://www.raspberrypi.org/">Raspberry Pi</a> or <a href="http://beagleboard.org/">BeagleBone</a> was mainly due to my familiarity with the Arduino interface. The Arduino community has been around for longer and has already worked through a lot of the uncertainties I was trying to eliminate in the project. Finding and testing out the Parola library made me certain that Arduino was the way to go.</p>
+<p>The most noteworthy thing about this project (for me, at least) is that it was my first time ever programming with Python. Python was the natural choice because it is supported out of the box on the Yún and because I've been looking for an excuse to learn it for some time now. I started working through "<a href="http://learnpythonthehardway.org/">Learn Python the Hard Way</a>" and quickly had the bulk of my trophy code written. The code does a few things:</p>
+<ol>
+<li>First, it checks my server for a <a href="http://www.samjbrenner.com/projects/trophy/trophy.json">configuration file</a> that contains the list of champions and URLs for the other APIs I'll be calling and some instructions on what to do with them. This will give me a certain amount of control of the trophy even when it's in someone else's home.</li>
+<li>Next, it populates a message buffer text file. To do this, it accesses the APIs (one being an NFL news RSS feed and the other being my NFL.com fantasy league's standings), formats the responses properly and saves them to the text file. One of the coolest technologies used in this process is <a href="http://www.kimonolabs.com/">Kimono</a>, a totally-pain-free tool for building APIs out of scraped web data (necessary because NFL.com doesn't provide their fantasy data in a developer-friendly format).</li>
+<li>Messages that are not as time-dependent, like the champions and the welcome messages, are also saved to a separate file to be used in case the Yún is unable to access the internet.</li>
+<li>Any subsequent time that the Arduino asks for a message, the Python program checks to see if there's anything in the message buffer and if so, returns it to the Arduino. Once the message buffer is empty, the whole process starts again.</li>
+</ol>
+<p>This is enough for an alpha release (and also because the fantasy season ended a month ago and the champion wants his trophy now!) but there are a bunch of things I still want to add:</p>
+<ol>
+<li>Incorporate pauses between message cycles - for example, once every hour. I imagine the bright red scrolling LEDs could get annoying pretty quickly.</li>
+<li>A user-friendly way to configure the Arduino's WiFi access. Since the trophy will change hands (and WiFi networks) every year, and most of those people will have had no experience using an Arduino, I need to come up with an easy way they can reconfigure the board to connect to their network.</li>
+<li>Remote updating. It should be easy to update the Python code remotely. I haven't looked into reprogramming the Arduino remotely but I imagine that would be a more difficult task.</li>
+<li>I would love to play more with animation on the LED matrix. Scrolling text gets a little boring after a while! I'm thinking I can use an animation program like After Effects to produce a file where 1 pixel of animation equals one 1 LED, and then translate the pixel information to a matrix of 1s and 0s that the Arduino could send to the trophy.</li>
+</ol>
+<p>All of the code is on <a href="https://github.com/sambrenner/future-trophy/">GitHub</a>, so go check it out!</process.h></spi.h></md_max72xx.h></md_parola.h></p>

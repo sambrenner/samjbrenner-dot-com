@@ -1,0 +1,42 @@
+---
+layout: post
+title: The Trophy of the Future, Version 2
+date: 2015-03-25 04:08:58.000000000 -04:00
+categories: []
+tags:
+- Arduino
+- Arduino Yun
+- Fabrication
+- Project Write-Up
+- Trophy of the Future
+status: publish
+type: post
+---
+<p><img class="alignnone size-medium wp-image-788" src="/assets/P3246327-800x626.jpg" alt="OLYMPUS DIGITAL CAMERA" width="800" height="626" /></p>
+<p>It wasn't quite the speedrun <a href="http://samjbrenner.com/notes/yun-easy-wifi-switch/">I anticipated</a> when I first started working on version 2 of the Trophy, but I'm finally ready to call my work done (for now) and ship it off. Here's a changelog of sorts:</p>
+<ul>
+	<li>Mounted the Arduino to the base using standoffs</li>
+	<li>Trimmed the cables exiting the trophy body and soldered on header pins for a clean connection</li>
+	<li>Glued the base to the trophy body using Amazing Goop</li>
+	<li>Developed and implemented <a href="https://github.com/sambrenner/yun-easy-wifi-switch">yun-easy-wifi-switch</a> to allow for user-friendly WiFi network switching</li>
+	<li>Developed and implemented <a href="https://github.com/sambrenner/linino-to-serial">linino-to-serial</a> for Linino -&gt; Arduino communication</li>
+	<li>Linino notifies Arduino of boot via linino-to-serial and displays a "loading" message until then (previously displayed nothing until boot)</li>
+	<li>Trophy displays the full message cycle only once an hour via cron + linino-to-serial (previously was always on)</li>
+	<li>Updated the <a href="https://github.com/sambrenner/future-trophy/blob/master/trophy.py">Python code</a> to allow for granular control over the trophy's message buffer</li>
+	<li>Handle errors thrown by the <a href="http://www.kimonolabs.com/">Kimono</a> API</li>
+	<li>Overhauled the <a href="https://github.com/sambrenner/future-trophy/blob/master/trophy.ino">Arduino code</a> to accept communication from Linino and act accordingly</li>
+</ul>
+<p><!--more--></p>
+<p>The name of the game for these revisions was an improved user experience. The WiFi switch was by far the most time-intensive task in v2, but it takes a huge amount of configuration responsibilities from the user. The loading text gives immediate feedback that nothing is broken. And the new trophy message cycle (once when Linino boots and then on every subsequent hour) makes the trophy far less annoying.</p>
+<p>Here are some pictures of the hardware changes. These changes were also driven by the need to make things easier for the user -- basically, taking three loosely-connected things and turning them into one solidly-connected thing. First, I inserted the standoffs by drilling a small hole and hammering them down (nylon threads don't cooperate with hard wood).</p>
+<p><img class="alignnone size-medium wp-image-784" src="/assets/P2166277-800x600.jpg" alt="OLYMPUS DIGITAL CAMERA" width="800" height="600" /></p>
+<p>You can see that I slightly messed up the position of the top-right standoff, so that one doesn't get a screw. Three is all you need!</p>
+<p><img class="alignnone size-medium wp-image-785" src="/assets/P2166278-800x462.jpg" alt="OLYMPUS DIGITAL CAMERA" width="800" height="462" /></p>
+<p>I used masking tape to temporarily connect the trophy to the base. Old me had accidentally placed the embedded copper wires too far forward in the cast, so they butted right up against the Arduino at the point where they exit the resin. I had to trim down the Arduino's ICSP pins (the 3x2 arrangement of pins in the top-center of the board) to let them clear.</p>
+<p><img class="alignnone size-medium wp-image-786" src="/assets/P2166285-800x462.jpg" alt="OLYMPUS DIGITAL CAMERA" width="800" height="462" /></p>
+<p>Then I bent the wires in to place. Old me also ordered these incorrectly (see how power and ground cross over the rest of the wires). I couldn't have flipped the board because the ethernet and USB ports need to be accessible. Not that big of a deal; I had plenty of wire to work with. I bent them to roughly hit the points on the board where they belonged.</p>
+<p><img class="alignnone size-medium wp-image-787" src="/assets/P2166287-800x600.jpg" alt="OLYMPUS DIGITAL CAMERA" width="800" height="600" /></p>
+<p>Finally, I snipped the wires to length and soldered a header pin perpendicular to the copper core. I ended up wrapping these with a tiny bit of electrical tape to be extra careful. Overall, it's pretty solid, especially with the trophy glued to the base (not pictured).</p>
+<p><img class="alignnone size-medium wp-image-783" src="/assets/P2166288-800x600.jpg" alt="OLYMPUS DIGITAL CAMERA" width="800" height="600" /></p>
+<p>So what for version 3? Probably some aesthetic improvements - perhaps a 1/4" thick copper strip where the resin joins the wood? Another thing I'd like to add is an "on demand" button so that the trophy's owner can see the message cycle at their convenience. And of course, doing more with those LEDs besides just scrolling text across them. But that will have to wait until next year!</p>
+<p>To read about version 1 of the trophy, refer to these posts about its <a href="http://samjbrenner.com/notes/making-the-worlds-first-internet-enabled-fantasy-football-trophy-part-2-programming/">development</a> and <a href="http://samjbrenner.com/notes/making-the-worlds-first-internet-enabled-fantasy-football-trophy-part-1-fabrication/">fabrication</a>.</p>
