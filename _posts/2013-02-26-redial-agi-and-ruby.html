@@ -11,16 +11,7 @@ tags:
 status: publish
 type: post
 published: true
-meta:
-  _edit_last: '1'
-author:
-  login: sambrenner
-  email: samjbrenner@gmail.com
-  display_name: sambrenner
-  first_name: ''
-  last_name: ''
-excerpt: !ruby/object:Hpricot::Doc
-  options: {}
+
 ---
 <p>This week, Redial had me finally becoming familiar with Ruby. We used AGI (Asterisk Gateway Interface) to pull info from the web and have it do something over the phone. My application takes two zipcodes entered on the keypad and sends them to a web service that calculates the distance between them. That distance is then read back to the caller.</p>
 <p>Super quick and dirty, no error handling or input validation. Here's the extensions.conf - it takes the two zip codes and sends it to Ruby:</p>

@@ -6,30 +6,20 @@ categories: []
 tags: []
 status: draft
 type: post
-published: false
-meta:
-  _edit_last: '1'
-author:
-  login: sambrenner
-  email: samjbrenner@gmail.com
-  display_name: sambrenner
-  first_name: ''
-  last_name: ''
-excerpt: !ruby/object:Hpricot::Doc
-  options: {}
+published: true
 ---
-<p>This is a blog post I wrote that was originally posted to the <a href="http://labs.cooperhewitt.org/2014/rethinking-search-on-the-collections-site/">Cooper Hewitt Labs blog</a> on August 21, 2014.</p>
+<p>This was originally posted to the <a href="http://labs.cooperhewitt.org/2014/rethinking-search-on-the-collections-site/">Cooper Hewitt Labs blog</a> on August 21, 2014.</p>
 <p>One of my longer-term projects since joining the museum has been rethinking how the search feature functions on the collections website. As we get closer to re-opening the museum with a <a href="http://www.cooperhewitt.org/2014/06/16/reopening-press-releases/" target="_blank">suite of new technologies</a>, our work in collaboration with <a href="http://localprojects.net/" target="_blank">Local Projects</a> has prompted us to take a close look at the moving pieces that comprise the backend of our collections site and API. Search, naturally, forms a large piece of that. Last week, after a few weeks of research and experimentation, <a href="http://collection.cooperhewitt.org/search/collection">I pushed the first iteration live</a>. In this post, I'll share some of the thoughts and challenges that informed our changes.</p>
 <p>First, a glossary of terms for readers who (like me, a month ago) have little-to-no experience with the inner-workings of a search engine:</p>
 <ul>
-<li><strong>Platform:</strong> The software that actually does the searching. The general process is that we feed data to the platform (see “index”), and then we ask it for results matching a certain set of parameters (see “query”). Everything else is handled by the platform itself. Part of what I’ll get into below involves our migration from one platform, <a href="http://lucene.apache.org/solr/" target="_blank">Apache Solr</a>, to another, <a href="http://elasticsearch.org/" target="_blank">Elasticsearch</a>.</li>
-<li><strong>Index:</strong> An index is the database that the search platform uses to perform searches on. The search index is a lot like the primary database (it probably could fill that role if it had to) but it adds extra functionality to facilitate quick and accurate retrieval of search results.</li>
-<li><strong>Query:</strong> The rules to follow in selecting things that are appropriate to provide as search results. For users, the query could be something like “red concert poster,” but we have to translate that into something that the search provider will understand before results can be retrieved. Search providers give us a lot of different ways we can query things (ranges of a number, geographic distance or word matching to name a few), and a challenge for us as interface designers is to decide how transparent we want to make that translation. Queries also allow us to define how results should be sorted and how to facet results.</li>
-<li><strong>Faceting/Aggregation:</strong> A way of grouping results based on traits they posses. For example, faceting on “location” when you search our collection for “cat” reveals that 80 of our cat-related things are from the USA, 16 are from France, and so on.</li>
-<li><strong>Analysis (Tokenization/Stemming etc):</strong> A process that helps a computer work with sentences. Tokenization, for example, would split a search for “white porcelain vase” into the individual tokens: “white," “porcelain” and “vase,” and then perform a search for any number of those tokens. Another example is stemming, which would allow the platform to understand that if a user searches for “running,” then items containing other words like “run” or “runner” are also valid search results. Analysis also gives us the opportunity to define custom rules that might include “marathon” and “track” as valid results in a search for “running."</li>
+	<li><strong>Platform:</strong> The software that actually does the searching. The general process is that we feed data to the platform (see “index”), and then we ask it for results matching a certain set of parameters (see “query”). Everything else is handled by the platform itself. Part of what I’ll get into below involves our migration from one platform, <a href="http://lucene.apache.org/solr/" target="_blank">Apache Solr</a>, to another, <a href="http://elasticsearch.org/" target="_blank">Elasticsearch</a>.</li>
+	<li><strong>Index:</strong> An index is the database that the search platform uses to perform searches on. The search index is a lot like the primary database (it probably could fill that role if it had to) but it adds extra functionality to facilitate quick and accurate retrieval of search results.</li>
+	<li><strong>Query:</strong> The rules to follow in selecting things that are appropriate to provide as search results. For users, the query could be something like “red concert poster,” but we have to translate that into something that the search provider will understand before results can be retrieved. Search providers give us a lot of different ways we can query things (ranges of a number, geographic distance or word matching to name a few), and a challenge for us as interface designers is to decide how transparent we want to make that translation. Queries also allow us to define how results should be sorted and how to facet results.</li>
+	<li><strong>Faceting/Aggregation:</strong> A way of grouping results based on traits they posses. For example, faceting on “location” when you search our collection for “cat” reveals that 80 of our cat-related things are from the USA, 16 are from France, and so on.</li>
+	<li><strong>Analysis (Tokenization/Stemming etc):</strong> A process that helps a computer work with sentences. Tokenization, for example, would split a search for “white porcelain vase” into the individual tokens: “white," “porcelain” and “vase,” and then perform a search for any number of those tokens. Another example is stemming, which would allow the platform to understand that if a user searches for “running,” then items containing other words like “run” or “runner” are also valid search results. Analysis also gives us the opportunity to define custom rules that might include “marathon” and “track” as valid results in a search for “running."</li>
 </ul>
 <h2>The State of Search</h2>
-<p>Our <a href="http://collection.cooperhewitt.org/search/" target="_blank">old search</a> functionality showed its symptoms of under-performance in a few ways. For example, basic searches -- phrases like "red concert poster" -- turned up no results despite the presence of such objects in our collection, and searching for people would not return the person themselves, only their objects. These symptoms led me to identify what I considered the two big flaws in our search implementation.</p>
+<p>Our old search functionality showed its symptoms of under-performance in a few ways. For example, basic searches -- phrases like "red concert poster" -- turned up no results despite the presence of such objects in our collection, and searching for people would not return the person themselves, only their objects. These symptoms led me to identify what I considered the two big flaws in our search implementation.</p>
 <p>On the backend, we were only indexing objects. This meant that if you searched for “Ray Eames,” you would see all of the objects we have associated with her, but to get to her individual person page, you would have to first click on an object and then click on her name. Considering that we have a lot of non-objects<sup><a href="#f1">1</a></sup>, it makes sense to index them all and include them, where relevant, in the results. This made my first objective to find a way to facilitate the indexing and querying of different types of things.</p>
 <p>On the frontend, we previously gave users two different ways to search our collection. The default method, accessible through the header of every page, performed a full text search on our Solr index and returned results sorted by image complexity. Users could also choose the “fancy search” option, which allows for searches on one or more of the individual fields we index, like “medium,” “title,” or “decade.” We all agreed here that "fancy search" was confusing, and all of its extra functionality -- faceting, searching across many fields -- shouldn't be seen as "advanced" features. My second objective in rethinking how search works, then, was to unify “fancy” and “regular” search into just “search.”</p>
 <h2>Objective 1: Update the Backend</h2>
@@ -50,31 +40,31 @@ excerpt: !ruby/object:Hpricot::Doc
 <p>A few days later, I flipped the switch to make Elasticsearch the default search provider and passed the link around internally to get some feedback from the rest of the museum. The feedback I got was important not just for working out the initial bugs and kinks, but also (and especially for myself as a relative newbie to the museum world) to help me get the language right and consider all the different expectations users might have when searching our collection. This resulted in some tweaks to the layout and copy, and some added functionality, but mostly it will inform my bigger-picture design decisions going forward.</p>
 <h2>A Few Numbers...</h2>
 <p>Improving performance wasn't a primary objective in our changes to search, but we got some speed boosts nonetheless.</p>
-<table>
-<tbody>
-<tr>
-<th>Query</th>
-<th>Before (Solr)</th>
-<th>After (Elasticsearch)</th>
-</tr>
-<tr>
-<td>query=cat, facets on</td>
-<td><a href="https://collection.cooperhewitt.org/search/fancy?q=cat">162 results in 1240-1350ms</a></td>
-<td><a href="https://collection.cooperhewitt.org/search/collection/?query=cat">167 results in 450-500ms</a></td>
-</tr>
-<tr>
-<td>year_acquired=gt1990, facets on</td>
-<td><a href="https://collection.cooperhewitt.org/search/fancy?y=gt1990">13,850 results in 1430-1560ms</a></td>
-<td><a href="https://collection.cooperhewitt.org/search/collection/?year_acquired=gt1990">14,369 results in 870-880ms</a></td>
-</tr>
-</tbody>
-<tbody>
-<tr>
-<td>department_id=35347493&amp;period_id=35417101, facets on</td>
-<td><a href="https://collection.cooperhewitt.org/search/fancy?D=35347493&amp;PR=35417101">1,094 results in 1530-1580ms</a></td>
-<td><a href="https://collection.cooperhewitt.org/search/collection/?department_id=35347493&amp;period_id=35417101">1,150 results in 960-990ms</a></td>
-</tr>
-</tbody>
+<table class="table">
+	<tbody>
+		<tr>
+			<th>Query</th>
+			<th>Before (Solr)</th>
+			<th>After (Elasticsearch)</th>
+		</tr>
+		<tr>
+			<td>query=cat, facets on</td>
+			<td><a href="https://collection.cooperhewitt.org/search/fancy?q=cat">162 results in 1240-1350ms</a></td>
+			<td><a href="https://collection.cooperhewitt.org/search/collection/?query=cat">167 results in 450-500ms</a></td>
+		</tr>
+		<tr>
+			<td>year_acquired=gt1990, facets on</td>
+			<td><a href="https://collection.cooperhewitt.org/search/fancy?y=gt1990">13,850 results in 1430-1560ms</a></td>
+			<td><a href="https://collection.cooperhewitt.org/search/collection/?year_acquired=gt1990">14,369 results in 870-880ms</a></td>
+		</tr>
+	</tbody>
+	<tbody>
+		<tr>
+			<td>department_id=35347493&amp;period_id=35417101, facets on</td>
+			<td><a href="https://collection.cooperhewitt.org/search/fancy?D=35347493&amp;PR=35417101">1,094 results in 1530-1580ms</a></td>
+			<td><a href="https://collection.cooperhewitt.org/search/collection/?department_id=35347493&amp;period_id=35417101">1,150 results in 960-990ms</a></td>
+		</tr>
+	</tbody>
 </table>
 <p>There are also cases where queries that turned up nothing before now produce relevant results, like "<a href="https://collection.cooperhewitt.org/search/collection/?query=red%20concert%20poster">red concert poster,</a>" (0 -&gt; 11 results) "<a href="https://collection.cooperhewitt.org/search/collection/?query=German+drawings">German drawings</a>" (0 -&gt; 101 results) and "<a href="https://collection.cooperhewitt.org/search/collection/?query=checkered+girard+samples">checkered Girard samples</a>" (0 -&gt; 10 results).</p>
 <h2>Next Steps</h2>
@@ -82,8 +72,8 @@ excerpt: !ruby/object:Hpricot::Doc
 <p>I'm also excited about integrating some more exiting search features -- things like type-ahead search and related search suggestion -- on to the site in the future. Additionally, figuring out how to let users make super-specific queries (like the aforementioned "most common medium in objects between 1990-2000") is a challenge that will require a lot of experimentation and testing, but it's definitely an ability we want to put in the hands of our users in the future.</p>
 <p>New Search is live on our site right now - <a href="http://collection.cooperhewitt.org/search/collection">go check it out</a>!</p>
 <div id="f1">
-<p><sup>1</sup> We’ve been struggling to find a word to use for things that are “first-class” in our collection (objects, people, countries, media etc.) that makes sense to both museum-folk and the laypeople. We can’t use “objects” because those already refer to a thing that might go on display in the museum. We’ve also tried “items,” “types” and “isas” (as in, “what is this? it is a person”). But nothing seems to fit the bill.</p>
+	<p><sup>1</sup> We’ve been struggling to find a word to use for things that are “first-class” in our collection (objects, people, countries, media etc.) that makes sense to both museum-folk and the laypeople. We can’t use “objects” because those already refer to a thing that might go on display in the museum. We’ve also tried “items,” “types” and “isas” (as in, “what is this? it is a person”). But nothing seems to fit the bill.</p>
 </div>
 <div id="f2">
-<p><sup>2</sup> We’re not in complete agreement here at the labs over the use of a sidebar to solve this design problem, but we're going to leave it on for a while and see how it fares with time. Feedback is requested!</p>
+	<p><sup>2</sup> We’re not in complete agreement here at the labs over the use of a sidebar to solve this design problem, but we're going to leave it on for a while and see how it fares with time. Feedback is requested!</p>
 </div>
