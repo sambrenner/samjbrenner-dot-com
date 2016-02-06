@@ -7,13 +7,13 @@ description: >
 baseurl: "" # the subpath of your site, e.g. /blog/
 url: "http://samjbrenner.com" # the base hostname & protocol for your site
 github_username:  sambrenner
-permalink: "blog/:title"
+permalink: "notes/:title"
 include: ['_pages']
 
 gems: ['jekyll-paginate']
 
 paginate: 8
-paginate_path: "/blog/page:num/"
+paginate_path: "/notes/page:num/"
 
 # Build settings
 markdown: kramdown
