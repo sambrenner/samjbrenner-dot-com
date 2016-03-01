@@ -4,6 +4,18 @@ permalink: "/"
 type: page
 description: The Internet Home of Sam Brenner, Interactive Media Developer at Cooper Hewitt, Smithsonian Design Museum
 ---
+<div class="col-md-12">
+	<h3>On The Blog:
+        {% for post in site.posts %}
+	        {% if post.layout == "post" %}
+                <a class="post-link" href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a>
+                {% break %}
+            {% endif %}
+        {% endfor %}
+	</h3>
+
+	<h2>Selected Projects</h2>
+</div>
 
 {% for post in site.posts %}
 	{% if post.tags contains "Featured" %}
@@ -12,7 +24,7 @@ description: The Internet Home of Sam Brenner, Interactive Media Developer at Co
 				<div class="media">
 					<img class="img-responsive" alt="{{ post.thumbnail_alt }}" src="{{ post.thumbnail }}" />
 				</div>
-					
+
 				<h2>
 					{% if post.homepage_title %}
 						{{ post.homepage_title }}

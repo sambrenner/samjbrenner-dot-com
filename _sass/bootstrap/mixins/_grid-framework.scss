@@ -61,6 +61,11 @@
       margin-left: percentage(($index / $grid-columns));
     }
   }
+  @if ($type == offset) {
+    .col-#{$class}-neg-offset-#{$index} {
+      margin-left: - percentage(($index / $grid-columns));
+    }
+  }
 }
 
 // [converter] This is defined recursively in LESS, but Sass supports real loops
@@ -78,4 +83,5 @@
   @include loop-grid-columns($grid-columns, $class, pull);
   @include loop-grid-columns($grid-columns, $class, push);
   @include loop-grid-columns($grid-columns, $class, offset);
+  @include loop-grid-columns($grid-columns, $class, neg);
 }

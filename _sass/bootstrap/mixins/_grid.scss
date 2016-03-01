@@ -82,6 +82,11 @@
     margin-left: percentage(($columns / $grid-columns));
   }
 }
+@mixin make-md-neg-column-offset($columns) {
+  @media (min-width: $screen-md-min) {
+    margin-left: -percentage(($columns / $grid-columns));
+  }
+}
 @mixin make-md-column-push($columns) {
   @media (min-width: $screen-md-min) {
     left: percentage(($columns / $grid-columns));
