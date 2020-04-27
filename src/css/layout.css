@@ -1,0 +1,192 @@
+body {
+    background-color: #f8f8f8;
+    color: #333;
+    font-family: "PublicSans", sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+    padding: 20px;
+}
+
+a {
+    color: #333;
+}
+
+a:hover {
+    color: #8C7997;
+}
+
+blockquote {
+    background-color: #eee;
+    font-style: italic;
+    padding: 16px 20px;
+}
+
+blockquote, p {
+    margin-bottom: 10px;
+}
+
+h1, h2 {
+    font-size: 2rem;
+    line-height: 2.2rem;
+}
+
+h2 {
+    font-weight: 400;
+}
+
+h4 {
+    font-style: italic;
+    font-weight: 400;
+}
+
+header a {
+    text-decoration: none;
+}
+
+li {
+    margin-bottom: 16px;
+}
+
+#about {
+    padding-bottom: 8px;
+}
+
+#extra-footer {
+    display: none;
+}
+
+#extra-footer, #extra-sidebar {
+    border-top: 1px solid #d9d3dd;
+    padding-top: 20px;
+}
+
+main {
+    overflow: auto;
+}
+
+#main-container {
+    display: grid;
+    gap: 20px;
+    grid-auto-flow: column;
+    grid-template-columns: 200px auto;
+    grid-template-rows: 2rem auto;
+    margin-bottom: 100px;
+    max-width: 1000px;
+}
+
+#main-container h2 {
+    min-height: 2rem;
+    margin-bottom: 12px;
+}
+
+#main-container main {
+    grid-row: 1 / span 2;
+}
+
+#main-container .page-content h2 {
+    font-size: 1.6rem;
+    font-weight: 700;
+    margin-top: 1.8rem;
+    margin-bottom: .8rem;
+    min-height: unset;
+}
+
+nav {
+    border-bottom: 1px solid #d9d3dd;
+    font-size: 1.2rem;
+    font-weight: 700;
+    line-height: 1.6rem;
+    margin-bottom: 12px;
+    padding-bottom: 14px;
+}
+
+nav li {
+    margin-bottom: 0;
+}
+
+nav li a {
+    text-decoration: none;
+}
+
+.page-content .video-embed embed,
+.page-content .video-embed iframe,
+.page-content .video-embed object {
+    margin: 0;
+}
+
+.video-embed {
+    height: 0;
+    max-width: 100%;
+    margin-bottom: 20px;
+    overflow: hidden;
+    padding-bottom: 56.25%;
+    position: relative;
+}
+
+.video-embed embed, .video-embed iframe, .video-embed object {
+    height: 100%;
+    left: 0;
+    margin: 0;
+    position: absolute;
+    top: 0;
+    width: 100%;
+}
+
+#boatgame {
+    margin-bottom: 12px;
+    width: 100%;
+}
+
+#sidebar {
+    font-size: 14px;
+}
+
+@media screen and (min-width: 1000px) {
+    .page-content {
+        p, li, blockquote {
+            font-size: 18px;
+        }
+    }
+}
+
+@media screen and (max-width: 800px) {
+    #about {
+        display: none;
+    }
+
+    #boatgame {
+        display: none;
+    }
+
+    #extra-sidebar {
+        display: none;
+    }
+
+    #extra-footer {
+        display: block;
+    }
+
+    #main-container {
+        grid-auto-flow: row;
+        grid-template-columns: auto;
+        grid-template-rows: auto;
+    }
+
+    #main-container main {
+        grid-row: auto;
+    }
+
+    nav {
+        border-bottom: none;
+    }
+
+    nav ul li {
+        display: inline;
+        margin-right: 20px;
+    }
+
+    #sidebar {
+        border-bottom: 1px solid #d9d3dd;
+        margin-bottom: 20px;
+    }
+}
