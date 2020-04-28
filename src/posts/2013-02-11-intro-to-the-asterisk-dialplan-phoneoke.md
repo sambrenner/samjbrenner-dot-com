@@ -1,5 +1,5 @@
 ---
-title: 'Intro to the Asterisk Dialplan: Phoneoke'
+title: 'Intro to the Asterisk dialplan: Phoneoke'
 author: sambrenner
 type: post
 date: 2013-02-11T17:46:25+00:00

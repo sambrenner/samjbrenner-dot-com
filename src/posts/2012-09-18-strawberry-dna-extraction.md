@@ -1,5 +1,5 @@
 ---
-title: Strawberry DNA Extraction
+title: Strawberry DNA extraction
 author: sambrenner
 type: post
 date: 2012-09-18T16:55:03+00:00

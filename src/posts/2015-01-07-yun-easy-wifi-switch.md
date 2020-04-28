@@ -30,7 +30,8 @@ I wanted something that would be even more foolproof &#8212; going through AP mo
 
 I suspected there must be a way to reconfigure wireless settings from the command line &#8212; after all, the web interface above has to do _something_ on the backend. Sure enough, that functionality is provided by [OpenWrt][5] (the flavor of Linux that runs on the Yun) through the [Unified Configuration Interface][6], or UCI. UCI is an interface to a series of text files, stored in <code>/etc/config/</code>, that allow you to change many of the Yun&#8217;s settings. The wireless config (<code>/etc/config/wireless</code>) is what we&#8217;re after as it contains settings for the SSID (aka network name) and network password values. Configuring it is as easy as:
 
-<pre><code># update value
+~~~bash
+# update value
 uci set wireless.@wifi-iface[0].ssid="my new ssid"
 
 # write to config file
@@ -38,11 +39,12 @@ uci commit wireless
 
 #restart wifi
 wifi
-</code></pre>
+~~~
 
 In theory, then, I should be able to have the user enter their wifi credentials into a text file on a USB flash drive on their own laptop, plug that into the Yun, have the Yun check the text file on start-up, and apply the wireless settings accordingly if it exists. After a few hours researching and coding I had the following program, which does just that.
 
-<pre><code>#!/bin/sh
+~~~bash
+#!/bin/sh
 
 # check config exist
 wificfg="/mnt/sda1/wifi.cfg"
@@ -68,7 +70,7 @@ then
 else
     echo "$wificfg was not found. Leaving wifi alone."
 fi
-</code></pre>
+~~~
 
 At this point I got a little greedy &#8212; the code above did everything I needed but it had one caveat that made the whole thing feel incomplete, especially considering my intention to open-source the program. The caveat was that my program would not work  if the Yun was in AP mode. It had to have already been configured to a wireless network via one of the traditional methods for my program to work correctly. This imposed a few limitations on the usefulness of the program:
 
@@ -79,7 +81,8 @@ I started writing this all out as a big caveat in the readme (I have [Aaron&#821
 
 Long story short, I spent the entire next day doing any one of inspecting the settings in AP mode vs. those in a functioning and non-functioning client mode, waiting for the Yun to restart, or tweaking my code to try and set the right settings (as it turns out, I also needed UCI to modify DHCP and network settings in addition to the wireless settings). This ate up a lot of time and was generally very tedious. The final piece was figuring out I needed to perform one final restart and then it was just a matter of wrapping my code up into a presentable format. Here&#8217;s the program with those additions:
 
-<pre><code>#!/bin/sh
+~~~bash
+#!/bin/sh
 
 UCI="/sbin/uci"
 
@@ -156,7 +159,7 @@ if [ "$cfg_load" = true ] ; then
 else
     echo "wifi.cfg was not found. Leaving wifi alone."
 fi
-</code></pre>
+~~~
 
 In the end, the requirement to disable wifi-live-or-reset was removed and now recipients of my trophy can switch the Yun&#8217;s wifi network from AP mode or from client mode all day long with nothing more than a text file on a jump drive. This extra bit of functionality did end up taking longer than I would have liked, but I did learn a lot about how devices connect to wifi networks so I consider it time well spent.
 

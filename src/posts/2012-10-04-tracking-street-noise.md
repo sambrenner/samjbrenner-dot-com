@@ -1,5 +1,5 @@
 ---
-title: Tracking Street Noise
+title: Tracking street noise
 author: sambrenner
 type: post
 date: 2012-10-04T14:37:46+00:00

@@ -1,5 +1,5 @@
 ---
-title: 'Soil as Medium: midterm'
+title: 'Soil as Medium: Midterm'
 author: sambrenner
 type: post
 date: 2014-04-10T04:21:19+00:00

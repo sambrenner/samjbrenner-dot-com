@@ -1,5 +1,5 @@
 ---
-title: 'Fungus Among Us: final project progress'
+title: 'Fungus Among Us: Final project progress'
 author: sambrenner
 type: post
 date: 2014-03-08T20:40:15+00:00

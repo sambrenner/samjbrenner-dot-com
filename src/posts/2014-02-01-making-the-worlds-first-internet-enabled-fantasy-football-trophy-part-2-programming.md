@@ -1,5 +1,5 @@
 ---
-title: "Making the world's first internet-enabled fantasy football trophy, part 2: programming"
+title: "Making the world's first internet-enabled fantasy football trophy, part 2: Programming"
 author: sambrenner
 type: post
 date: 2014-02-01T16:48:24+00:00
@@ -22,7 +22,8 @@ At the heart of it all is an [Arduino Yún][2], the first Arduino board to also 
 
 Here&#8217;s the Python:
 
-<pre><code class="python">from sys import argv
+~~~python
+from sys import argv
 import os
 import feedparser
 import json
@@ -134,14 +135,15 @@ if len(argv) > 1:
     print 'Please supply a valid command.'
 else:
   print 'Please supply a command.'
-</pre></code>
+~~~
 
 And here&#8217;s the Arduino code:
 
-<pre><code class="cpp">#include &lt;MD_Parola.h&gt;
-#include &lt;MD_MAX72xx.h&gt;
-#include &lt;SPI.h&gt;
-#include &lt;Process.h&gt;
+~~~cpp
+#include <MD_Parola.h>
+#include <MD_MAX72xx.h>
+#include <SPI.h>
+#include <Process.h>
 
 //arduino pins
 #define MAX_DEVICES 5
@@ -190,7 +192,7 @@ void scrollNextMessage() {
 
   scroller.displayScroll(msg, MD_Parola::LEFT, scrollEffect, frameDelay);
 }
-</code></pre>
+~~~
 
 The reason I went with an Arduino over a similar board like the [Raspberry Pi][6] or [BeagleBone][7] was mainly due to my familiarity with the Arduino interface. The Arduino community has been around for longer and has already worked through a lot of the uncertainties I was trying to eliminate in the project. Finding and testing out the Parola library made me certain that Arduino was the way to go.
 

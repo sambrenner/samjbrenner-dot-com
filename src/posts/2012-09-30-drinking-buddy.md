@@ -1,5 +1,5 @@
 ---
-title: Drinking Buddy
+title: Drinking buddy
 author: sambrenner
 type: post
 date: 2012-09-30T19:54:55+00:00
@@ -25,7 +25,8 @@ The audio aspect of the program was a lot of fun. First, I had to transcribe the
 
 Finally, I entered that info into code using the [Pitches.h][5] library.
 
-<pre><code>int melody[] = {
+~~~cpp
+int melody[] = {
   NOTE_D3, NOTE_B2, NOTE_D3, NOTE_B2,
   NOTE_C3, NOTE_C3, NOTE_B2, NOTE_C3, NOTE_D3, NOTE_B2, NOTE_G3, NOTE_D3,
   NOTE_D3, NOTE_B2, NOTE_D3, NOTE_B2,
@@ -46,11 +47,12 @@ int durations[] = {
   4, 4, 4, 4,
   8, 16, 16, 8, 8, 2
 };
-</code></pre>
+~~~
 
 To &#8220;drunkify&#8221; the notes, I wrote a function that randomly changes the pitch and duration values. Since the Pitches.h constants only represent integer values, you can increase or decrease the pitch by increasing or decreasing the value. Same with note duration, except since that uses milliseconds, I just add or subtract a larger number. The drunkenness parameter changes both the likelihood that a pitch will be altered and the intensity with which it will be altered.
 
-<pre><code>void drunkifyNote(int pitch, int duration, float drunkenness) {
+~~~cpp
+void drunkifyNote(int pitch, int duration, float drunkenness) {
   boolean drunkifyPitch = binaryRandomWithProbability(drunkenness);
   boolean drunkifyDuration = binaryRandomWithProbability(drunkenness);
 
@@ -68,7 +70,7 @@ boolean binaryRandomWithProbability(float probability) {
   if(probability * 100 > rand) returnVal = true;
   return returnVal;
 }
-</code></pre>
+~~~
 
 
 After plugging in the sensor&#8217;s value, I was all set! Below, pictures of the complete setup and a close-up of the MQ-3.

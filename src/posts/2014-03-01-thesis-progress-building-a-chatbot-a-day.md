@@ -1,5 +1,5 @@
 ---
-title: 'Thesis Progress: building a chatbot a day'
+title: 'Thesis Progress: Building a chatbot a day'
 author: sambrenner
 type: post
 date: 2014-03-01T21:43:42+00:00

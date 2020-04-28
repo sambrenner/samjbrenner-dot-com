@@ -1,5 +1,5 @@
 ---
-title: Defining Interaction
+title: Defining interaction
 author: sambrenner
 type: post
 date: 2012-09-17T19:25:52+00:00

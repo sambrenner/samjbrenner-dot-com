@@ -1,5 +1,5 @@
 ---
-title: Building a Dreamachine
+title: Building a dreamachine
 author: sambrenner
 type: post
 date: 2012-09-10T22:10:58+00:00

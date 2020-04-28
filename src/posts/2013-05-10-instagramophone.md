@@ -21,7 +21,8 @@ Instagram takes your photos and makes them look bad, because vintage is trendy. 
 Callers are asked to choose one of five different filters for their voice, all inspired by vintage sound media. The choices are a [wax cylinder][1], an [LP record][2], an [FM radio][3], a [cassette tape][4] and [scrambled porn][5]. After recording their message, the effect is applied and played back. Callers then have the option of uploading their sound to [Soundcloud][6].
 The application was built in [Asterisk][7], with [SoX][8] to do the audio processing and Ruby to upload to Soundcloud. When a user records their message, Asterisk sends the recorded file in to a shell script that does the necessary slicing and dicing to create my desired effect. The cassette tape filter, for example, looks like this:
 
-<pre><code>#split the source recording and apply bends up and down
+~~~bash
+#split the source recording and apply bends up and down
 sox $1 /projects/instagramophone/temp/$tempConversionDir/bend.wav trim 1 bend .25,300,.25  .25,-300,.25 : newfile : restart
 
 #recombine the split files
@@ -29,12 +30,13 @@ sox /projects/instagramophone/temp/$tempConversionDir/*.wav -c1 /projects/instag
 
 #add cassette tape sound effects to beginning and end
 sox -c1 /projects/instagramophone/static/wav/cassette.wav /projects/instagramophone/temp/$tempConversionDir/mixdown.wav -c1 /projects/instagramophone/static/wav/cassetteend.wav -r 8000 -c1 /projects/instagramophone/messages/altered/$sourcefile
-</code></pre>
+~~~
 
 
 The scrambled porn filter is a little more complicated. After watching [this clip][9] of scrambled pay-per-view (SFW), I wanted to make my filter cut the audio in and out rapidly. I did that by splitting the recorded file in to many tiny chunks and alternating the volume up and down:
 
-<pre><code>#split the file in to 0.1 second chunks
+~~~bash
+#split the file in to 0.1 second chunks
 sox $1 /projects/instagramophone/temp/$tempConversionDir/trim.wav trim 0.1 : newfile : restart
 
 declare -i counter=
@@ -55,7 +57,7 @@ done
 #recombine and add scrambled porn background
 sox /projects/instagramophone/temp/$tempConversionDir/$tempEffectDir/*.wav /projects/instagramophone/temp/$tempConversionDir/mixdown.wav
 sox -m -v1.5 /projects/instagramophone/temp/$tempConversionDir/mixdown.wav -v0.8 /projects/instagramophone/static/wav/scrambledporn.wav -r 8000 -c1 /projects/instagramophone/messages/altered/$sourcefile
-</code></pre>
+~~~
 
 Please call it up and leave a message!
 

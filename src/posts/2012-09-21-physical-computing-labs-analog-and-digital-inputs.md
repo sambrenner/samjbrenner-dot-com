@@ -1,5 +1,5 @@
 ---
-title: 'Physical Computing Labs: Analog and Digital Inputs'
+title: 'Physical Computing labs: Analog and digital inputs'
 author: sambrenner
 type: post
 date: 2012-09-21T13:09:35+00:00

@@ -1,15 +1,16 @@
 ---
-title: Sorting, synonyms and a pretty pony
+title: Sorting, synonyms, and a pretty pony
 author: sambrenner
 type: post
 date: 2015-04-17T15:08:07+00:00
 path: /notes/sorting-synonyms-and-a-pretty-pony/
 categories:
   - Cooper Hewitt
+churl: http://labs.cooperhewitt.org/2015/sorting-synonyms-and-a-pretty-pony/
 ---
-_This post was originally published on the [Cooper Hewitt Labs blog][1]._
 
 We&#8217;ve been undergoing a massive rapid-capture digitization project here at the Cooper Hewitt, which means every day brings us pictures of things that probably haven&#8217;t been seen for a very, very long time.
+
 As an initial way to view all these new images of objects, I added &#8220;date last photographed&#8221; to our search index and allowed it to be [sorted by on the search results page][2].
 
 That&#8217;s when I found this.
@@ -28,8 +29,9 @@ Enter [synonyms][5]. Synonyms, as you might have guessed, are a text analysis te
 
 The actual rule (generated with the help of Wikipedia&#8217;s [list of animal names][6]) is this:
 
-<pre><code>"animal" => "aardvark, albatross, alligator, alpaca, ant, anteater, antelope, ape, armadillo, baboon, badger, barracuda, bat, bear, beaver, bee, bird, bison, boar, butterfly, camel, capybara, caribou, cassowary, cat, kitten, caterpillar, calf, bull, cheetah, chicken, rooster, chimpanzee, chinchilla, chough, clam, cobra, cockroach, cod, cormorant, coyote, puppy, crab, crocodile, crow, curlew, deer, dinosaur, dog, puppy, salmon, dolphin, donkey, dotterel, dove, dragonfly, duck, poultry, dugong, dunlin, eagle, echidna, eel, elephant, seal, elk, emu, falcon, ferret, finch, fish, flamingo, fly, fox, frog, gaur, gazelle, gerbil, panda, giraffe, gnat, goat, sheep, goose, poultry, goldfish, gorilla, blackback, goshawk, grasshopper, grouse, guanaco, fowl, poultry, guinea, pig, gull, hamster, hare, hawk, goshawk, sparrowhawk, hedgehog, heron, herring, hippopotamus, hornet, swarm, horse, foal, filly, mare, pig, human, hummingbird, hyena, ibex, ibis, jackal, jaguar, jellyfish, planula, polyp, scyphozoa, kangaroo, kingfisher, koala, dragon, kookabura, kouprey, kudu, lapwing, lark, lemur, leopard, lion, llama, lobster, locust, loris, louse, lyrebird, magpie, mallard, manatee, mandrill, mantis, marten, meerkat, mink, mongoose, monkey, moose, venison, mouse, mosquito, mule, narwhal, newt, nightingale, octopus, okapi, opossum, oryx, ostrich, otter, owl, oyster, parrot, panda, partridge, peafowl, poultry, pelican, penguin, pheasant, pigeon, bear, pony, porcupine, porpoise, quail, quelea, quetzal, rabbit, raccoon, rat, raven, deer, panda, reindeer, rhinoceros, salamander, salmon, sandpiper, sardine, scorpion, lion, sea urchin, seahorse, shark, sheep, hoggett, shrew, skunk, snail, escargot, snake, sparrow, spider, spoonbill, squid, calamari, squirrel, starling, stingray, stinkbug, stork, swallow, swan, tapir, tarsier, termite, tiger, toad, trout, poultry, turtle, vulture, wallaby, walrus, wasp, buffalo, carabeef, weasel, whale, wildcat, wolf, wolverine, wombat, woodcock, woodpecker, worm, wren, yak, zebra"
-</pre></code>
+~~~plaintext
+"animal" => "aardvark, albatross, alligator, alpaca, ant, anteater, antelope, ape, armadillo, baboon, badger, barracuda, bat, bear, beaver, bee, bird, bison, boar, butterfly, camel, capybara, caribou, cassowary, cat, kitten, caterpillar, calf, bull, cheetah, chicken, rooster, chimpanzee, chinchilla, chough, clam, cobra, cockroach, cod, cormorant, coyote, puppy, crab, crocodile, crow, curlew, deer, dinosaur, dog, puppy, salmon, dolphin, donkey, dotterel, dove, dragonfly, duck, poultry, dugong, dunlin, eagle, echidna, eel, elephant, seal, elk, emu, falcon, ferret, finch, fish, flamingo, fly, fox, frog, gaur, gazelle, gerbil, panda, giraffe, gnat, goat, sheep, goose, poultry, goldfish, gorilla, blackback, goshawk, grasshopper, grouse, guanaco, fowl, poultry, guinea, pig, gull, hamster, hare, hawk, goshawk, sparrowhawk, hedgehog, heron, herring, hippopotamus, hornet, swarm, horse, foal, filly, mare, pig, human, hummingbird, hyena, ibex, ibis, jackal, jaguar, jellyfish, planula, polyp, scyphozoa, kangaroo, kingfisher, koala, dragon, kookabura, kouprey, kudu, lapwing, lark, lemur, leopard, lion, llama, lobster, locust, loris, louse, lyrebird, magpie, mallard, manatee, mandrill, mantis, marten, meerkat, mink, mongoose, monkey, moose, venison, mouse, mosquito, mule, narwhal, newt, nightingale, octopus, okapi, opossum, oryx, ostrich, otter, owl, oyster, parrot, panda, partridge, peafowl, poultry, pelican, penguin, pheasant, pigeon, bear, pony, porcupine, porpoise, quail, quelea, quetzal, rabbit, raccoon, rat, raven, deer, panda, reindeer, rhinoceros, salamander, salmon, sandpiper, sardine, scorpion, lion, sea urchin, seahorse, shark, sheep, hoggett, shrew, skunk, snail, escargot, snake, sparrow, spider, spoonbill, squid, calamari, squirrel, starling, stingray, stinkbug, stork, swallow, swan, tapir, tarsier, termite, tiger, toad, trout, poultry, turtle, vulture, wallaby, walrus, wasp, buffalo, carabeef, weasel, whale, wildcat, wolf, wolverine, wombat, woodcock, woodpecker, worm, wren, yak, zebra"
+~~~
 
 Where every word to the right of the => automatically gets added to a search for a word to the left.
 

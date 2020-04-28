@@ -46,7 +46,8 @@ A few months ago, we began the process of adding videos and their metadata in to
 
 In addition to its inclusion in the website, video data is also now available over our API. When calling an API method for an [object][10], [person][11] or [exhibition][12] from our collection, paths to the various video sizes, formats and subtitle files are returned. Here&#8217;s an example response for one of Bill&#8217;s two videos:
 
-<pre><code>{
+~~~js
+{
   "id": "68764297",
   "youtube_url": "www.youtube.com/watch?v=DAHHSS_WgfI",
   "title": "Bill Moggridge on Interaction Design",
@@ -61,7 +62,7 @@ In addition to its inclusion in the website, video data is also now available ov
   },
   "srt": "https://s3.amazonaws.com/videos.collection.cooperhewitt.org/DIGVID0059.srt"
 }
-</code></pre>
+~~~
 
 The first step in accomplishing this was to process the videos into all the formats we would need. To facilitate this task, I built [VidSmanger][13], which processes source videos of multiple sizes and formats into consistent, predictable derivative versions. At its core, VidSmanger is a wrapper around [ffmpeg][14], an open-source multimedia encoding program. As its input, VidSmanger takes a folder of source videos and, optionally, a folder of SRT subtitle files. It outputs various sizes (currently 1280&#215;720 and 1920&#215;1080), various formats (currently only mp4, though any ffmpeg-supported codec will work), and will bake-in subtitles for in-gallery display. It gives all of these derivative versions predictable names that we will use when constructing the API response.
 
@@ -73,13 +74,11 @@ Because VidSmanger is a shell script composed mostly of simple command line comm
 
 For now, [VidSmanger is open-source and available on our GitHub page!][13] To use it, first clone the repo and the run:
 
-<pre><code>./bin/init.sh
-</code></pre>
+    ./bin/init.sh
 
 This will initialize the folder structure and install any dependencies ([homebrew][16] and ffmpeg). Then add all your videos to the source-to-encode folder and run:
 
-<pre><code>./bin/encode.sh
-</code></pre>
+    ./bin/encode.sh
 
 Now you&#8217;re smanging!
 

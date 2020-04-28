@@ -1,5 +1,5 @@
 ---
-title: Observing Interaction at the Museum of Natural History
+title: Observing interaction at the Museum of Natural History
 author: sambrenner
 type: post
 date: 2012-09-23T20:26:46+00:00

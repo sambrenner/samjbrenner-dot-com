@@ -1,5 +1,5 @@
 ---
-title: 'Soil as Medium final project proposal: compost pile composter'
+title: 'Soil as Medium final project proposal: Compost pile composter'
 author: sambrenner
 type: post
 date: 2014-04-25T00:30:08+00:00

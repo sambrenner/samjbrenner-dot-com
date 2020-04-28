@@ -16,16 +16,13 @@ I wanted to upgrade the Yun to the latest version of [OpenWrt][2] because opkg w
 
 The OpenWrt image clocks in at 16 MB, and by running <code>df -h</code> I saw that the Yun&#8217;s onboard memory had around 20 MB free in the <code>/tmp</code> directory. I downloaded the [latest Yun image from the Arduino website][4] and unzipped it on my Mac, then used <code>scp</code> to move the file to the Yun:
 
-
-<pre><code>scp openwrt-ar71xx-generic-yun-16M-squashfs-sysupgrade.bin root@arduino.local:/tmp/
-</code></pre>
+    scp openwrt-ar71xx-generic-yun-16M-squashfs-sysupgrade.bin root@arduino.local:/tmp/
 
 According to [Arduino&#8217;s upgrade guide][5], the next step would be to run <code>run-sysupgrade</code> on the OpenWrt image, but a second problem surfaces here. It turns out that the first thing <code>run-sysupgrade</code> does is copy the image to <code>/tmp</code>, which errors because the file already exists. I could move the file to a subdirectory so <code>run-sysupgrade</code> could copy it back, but the Yun&#8217;s onboard memory doesn&#8217;t have enough space for that.
 
 The solution here, noted on [OpenWrt&#8217;s system upgrade page][6], is to use <code>sysupgrade</code> &#8211; note the lack of <code>run-</code> in that command&#8217;s name. Like this:
 
-<pre><code>sysupgrade /tmp/openwrt-ar71xx-generic-yun-16M-squashfs-sysupgrade.bin
-</pre></code>
+    sysupgrade /tmp/openwrt-ar71xx-generic-yun-16M-squashfs-sysupgrade.bin
 
 Three minutes later, you have upgraded OpenWrt on your Arduino Yun! All the configurations should be the same, but you will have to reinstall any opkg packages.
 

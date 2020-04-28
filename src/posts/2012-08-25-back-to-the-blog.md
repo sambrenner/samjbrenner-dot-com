@@ -1,5 +1,5 @@
 ---
-title: Back to the Blog
+title: Back to the blog
 author: sambrenner
 type: post
 date: 2012-08-25T18:14:46+00:00

@@ -13,12 +13,13 @@ The Arduino Yún doesn&#8217;t come with SSL support, which means no pip and no 
 
 SSH into your Yún and issue the following commands:
 
-<pre><code>opkg update
+~~~bash
+opkg update
 opkg install distribute
 opkg install python-openssl
 opkg install python-bzip2
 easy_install pip
-</code></pre>
+~~~
 
 Then you can use <code>pip install</code> to install whatever packages you need.
 

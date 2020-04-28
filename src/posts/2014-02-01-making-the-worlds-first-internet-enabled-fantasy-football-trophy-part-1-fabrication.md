@@ -1,5 +1,5 @@
 ---
-title: "Making the world's first internet-enabled fantasy football trophy, part 1: fabrication"
+title: "Making the world's first internet-enabled fantasy football trophy, part 1: Fabrication"
 author: sambrenner
 type: post
 date: 2014-02-01T16:48:12+00:00

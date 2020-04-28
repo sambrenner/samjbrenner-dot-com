@@ -1,5 +1,5 @@
 ---
-title: Video Feedback with Skype Screen Sharing
+title: Video feedback with Skype screen sharing
 author: sambrenner
 type: post
 date: 2013-01-09T17:08:09+00:00

@@ -1,5 +1,5 @@
 ---
-title: 'BadFighter: the baddest 2-player fighting game ever'
+title: 'BadFighter: The baddest 2-player fighting game ever'
 author: sambrenner
 type: post
 date: 2013-12-19T20:45:42+00:00

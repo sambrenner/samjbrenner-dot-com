@@ -1,5 +1,5 @@
 ---
-title: 'Soil as Medium: final'
+title: 'Soil as Medium: Final'
 author: sambrenner
 type: post
 date: 2014-05-10T17:39:03+00:00

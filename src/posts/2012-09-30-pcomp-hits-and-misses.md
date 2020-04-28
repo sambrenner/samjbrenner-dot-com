@@ -1,5 +1,5 @@
 ---
-title: Reaction to Physical Computing’s Greatest Hits (and Misses)
+title: Reaction to physical computing’s greatest hits (and misses)
 author: sambrenner
 type: post
 date: 2012-09-30T17:35:02+00:00
