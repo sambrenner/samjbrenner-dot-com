@@ -23,3 +23,7 @@ Upon starting the game, players are asked to pick a LiveJournal account. Any ext
 The game is a work in progress as I continue to research online archiving. Specific next steps are outlined on <a href="https://github.com/sambrenner/teenbloggers/issues?page=1&state=open" target="_blank">Github</a>; the <a href="https://github.com/sambrenner/teenbloggers/" target="_blank">source code</a> for the project is there as well. You can play the game <a href="http://teenbloggers.net" target="_blank">here</a>.
 
 Below is the presentation I gave on the project during ITP&#8217;s Thesis Week.
+
+<div class="video-embed">
+<iframe src="https://player.vimeo.com/video/97018381" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
+</div>
