@@ -1,11 +1,36 @@
 export default [
   {
     selected: true,
+    title: 'CBRE Build',
+    seoname: 'cbre',
+    year: '2019-2020',
+    type: 'online',
+    description: '<p>At CBRE Build I worked on Plans Pro, a floorplan editor for office spaces. </p>',
+    visual: [
+      { type: 'image', url: '/img/portfolio/online/cbre/cbre1.png' },
+      { type: 'image', url: '/img/portfolio/online/cbre/cbre2.png' }
+    ],
+    links: [
+      {
+        text: 'Learn more about Vidcode',
+        href: 'https://vidcode.com/',
+        rel: 'external'
+      },
+      {
+        text: 'Try out the coding platform',
+        href: 'https://vidcode.com/project/sandbox',
+        rel: 'external'
+      }
+    ]
+  },
+
+  {
+    selected: true,
     title: 'Vidcode',
     seoname: 'vidcode',
     year: '2016-2019',
     type: 'online',
-    description: '<p>At Vidcode, I led the engineering team to build our creative coding education platform used in daily thousands of schools across the country. Major initiatives included rebuilding the teacher dashboard used by educators to track student progress, rebuilding our rendering engine, and integrating our coding platform with external LMSes.</p>',
+    description: '<p>At Vidcode I led the engineering team to build our creative coding education platform used in daily thousands of schools across the country. Major initiatives included rebuilding the teacher dashboard used by educators to track student progress, rebuilding our rendering engine, and integrating our coding platform with external LMSes.</p>',
     visual: [
       { type: 'image', url: '/img/portfolio/online/vidcode/vidcode.gif' },
       { type: 'image', url: '/img/portfolio/online/vidcode/01.jpg' },
@@ -100,6 +125,7 @@ export default [
       }
     ]
   },
+  /*
   {
     title: 'SMOG USA',
     seoname: 'smog-usa',
@@ -122,6 +148,7 @@ export default [
       }
     ]
   },
+  */
   {
     selected: true,
     title: 'The Trophy of the Future',
@@ -271,6 +298,9 @@ export default [
     type: 'online',
     visual: [],
     description: '<p>Il Telefono di Pavarotti is a telephone-based chatroom where callers are given a Pavarotti avatar which transforms their screams into the famously-elongated B4 from <em>Nessun Dorma</em>.</p>',
+    visual: [
+      {type: 'image', url: '/img/uploads/2013/04/pav-600x385.jpg'}
+    ],
     links: [
       {
         text: 'Read More',

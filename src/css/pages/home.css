@@ -30,11 +30,14 @@ li {
 }
 
 .project-media li.active {
-    display: block;
+  display: block;
+  height: 0;
+  overflow: hidden;
+  padding-bottom: 56.25%;
 }
 
 .project-media li img {
-    width: 100%;
+  width: 100%;
 }
 
 @media screen and (max-width: 1000px) {
