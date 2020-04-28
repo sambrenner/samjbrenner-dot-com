@@ -1,5 +1,4 @@
 import React from 'react';
-import * as createjs from 'createjs-module';
 
 export default class Project extends React.Component {
   constructor(props) {
