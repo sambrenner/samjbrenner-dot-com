@@ -3,18 +3,7 @@ import { graphql, Link } from 'gatsby';
 import Layout from '../components/layout';
 import NotesSidebar from '../components/notesSidebar';
 import * as noteUtils from '../utils/notes';
-import hljs from 'highlight.js/lib/highlight';
-import javascript from 'highlight.js/lib/languages/javascript';
-import python from 'highlight.js/lib/languages/python';
-import bash from 'highlight.js/lib/languages/bash';
-import cpp from 'highlight.js/lib/languages/cpp';
 import 'highlight.js/styles/routeros.css';
-import 'processing-js';
-
-hljs.registerLanguage('javascript', javascript);
-hljs.registerLanguage('python', python);
-hljs.registerLanguage('bash', bash);
-hljs.registerLanguage('cpp', cpp);
 
 export default class Page extends React.Component {
   constructor(props) {
@@ -27,9 +16,17 @@ export default class Page extends React.Component {
     };
   }
 
-  componentDidMount() {
-    hljs.initHighlighting();
-    window.Processing.reload();
+  async componentDidMount() {
+    if (
+      this.state.frontmatter.uses &&
+      this.state.frontmatter.uses.includes('processing.js')
+    ) {
+      if (window && !window.Processing) {
+        await import('processing-js');
+      }
+
+      window.Processing.reload();
+    }
   }
 
   render() {
@@ -129,6 +126,7 @@ export const pageQuery = graphql`
         date
         categories
         churl
+        uses
       }
     }
   }
