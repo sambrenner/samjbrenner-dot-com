@@ -24,11 +24,11 @@ export default class Project extends React.Component {
   }
 
   render() {
-    const links = this.props.data.links.map((l, i) => (<span key={l.href}>
+    const links = this.props.data.links ? this.props.data.links.map((l, i) => (<span key={l.href}>
       <a href={l.href}>
         {l.text}
       </a>{i < this.props.data.links.length - 1 ? ', ' : ''}
-    </span>))
+    </span>)) : <></>;
 
     const carousel = (<ul className="project-media">
       {this.props.data.visual.map((v, i) => {

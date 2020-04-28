@@ -5,22 +5,10 @@ export default [
     seoname: 'cbre',
     year: '2019-2020',
     type: 'online',
-    description: '<p>At CBRE Build I worked on Plans Pro, a floorplan editor for office spaces. </p>',
+    description: '<p>At CBRE Build I worked on Plans Pro, a floorplan editor for office spaces. I led improvements to frontend performance and built debugging tools to assist in the workflow of the product&apos;s production team.</p>',
     visual: [
       { type: 'image', url: '/img/portfolio/online/cbre/cbre1.png' },
       { type: 'image', url: '/img/portfolio/online/cbre/cbre2.png' }
-    ],
-    links: [
-      {
-        text: 'Learn more about Vidcode',
-        href: 'https://vidcode.com/',
-        rel: 'external'
-      },
-      {
-        text: 'Try out the coding platform',
-        href: 'https://vidcode.com/project/sandbox',
-        rel: 'external'
-      }
     ]
   },
 
