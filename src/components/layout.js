@@ -1,12 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link, useStaticQuery, graphql } from 'gatsby';
-
-import BoatGame from './boatGame';
+import Loadable from '@loadable/component';
 
 import '../css/reset.css';
 import '../css/fonts.css';
 import '../css/layout.css';
+
+const BoatGame = Loadable(() => import('./boatGame'));
 
 const Layout = ({ title, sidebar, children }) => {
   const data = useStaticQuery(graphql`
@@ -17,7 +18,7 @@ const Layout = ({ title, sidebar, children }) => {
         }
       }
     }
-  `)
+  `);
 
   return (
     <div id="main-container">
@@ -40,7 +41,7 @@ const Layout = ({ title, sidebar, children }) => {
 
         <section id="about">
           <p>
-            The internet home of Sam Brenner, Software Engineer at <a href="https://cbrebuild.com">CBRE Build</a>.
+            The internet home of Sam Brenner, Software Engineer at <a href="https://spotify.com">Spotify</a>.
           </p>
 
           <p>
@@ -68,13 +69,13 @@ const Layout = ({ title, sidebar, children }) => {
         <section id="extra-footer">
           {sidebar}
         </section>
-      ): <span></span>}
+      ) : <span></span>}
     </div>
-  )
-}
+  );
+};
 
 Layout.propTypes = {
-  children: PropTypes.node.isRequired,
-}
+  children: PropTypes.node.isRequired
+};
 
-export default Layout
+export default Layout;
