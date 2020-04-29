@@ -1,0 +1,32 @@
+name: Update blog
+
+on: [push, repository_dispatch]
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 2
+
+      - name: Set Node.js
+        uses: actions/setup-node@master
+        with:
+          node-version: 10.x
+
+      - name: Install dependencies
+        run: yarn install --prod --pure-lockfile
+
+      - name: Build
+        run: yarn run build
+
+      - name: FTP Deploy
+        uses: SamKirkland/FTP-Deploy-Action@master
+        with:
+          known-hosts: ${{ secrets.FTP_KNOWN_HOSTS }}
+          ftp-server: sftp://samjbrenner.com
+          ftp-username: ${{ secrets.FTP_USER }}
+          ftp-password: ${{ secrets.FTP_PW }}
+          local-dir: public
+          git-ftp-args: --verbose --remote-root ${{ secrets.FTP_REMOTE_ROOT }}
