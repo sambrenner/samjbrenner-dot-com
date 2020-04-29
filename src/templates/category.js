@@ -1,18 +1,18 @@
-import React from "react";
-import Layout from "../components/layout";
-import PostListByYear from "../components/postListByYear";
+import React from 'react';
+import Layout from '../components/layout';
+import PostListByYear from '../components/postListByYear';
 import NotesSidebar from '../components/notesSidebar';
 
-import { graphql } from "gatsby"
+import { graphql } from 'gatsby';
 
 const sidebar = <NotesSidebar />;
 
-export default function Template({data, pageContext}) {
+export default function Template({ data, pageContext }) {
   return (
     <Layout title={`Category: ${pageContext.category}`} sidebar={sidebar}>
       <PostListByYear posts={data.allMarkdownRemark.edges}></PostListByYear>
     </Layout>
-  )
+  );
 }
 
 export const pageQuery = graphql`
@@ -23,7 +23,10 @@ export const pageQuery = graphql`
         fields: [frontmatter___date]
       },
       filter: {
-        frontmatter: { categories: { eq: $category } }
+        frontmatter: {
+          categories: { eq: $category },
+          draft: { ne: true }
+        }
       }
     ) {
       edges {
@@ -39,4 +42,4 @@ export const pageQuery = graphql`
       }
     }
   }
-`
+`;
