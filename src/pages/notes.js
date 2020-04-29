@@ -16,7 +16,12 @@ const BlogPage = ({data}) => {
 
   return (
     <Layout title="Blog" sidebar={sidebar}>
-      <SEO title="Home" />
+      <SEO
+        title="Blog"
+        description="The internet home of Sam Brenner, Software Engineer at Spotify"
+        image="http://samjbrenner.com/lib/img/fb.jpg"
+      ></SEO>
+
       <PostListByYear posts={data.allMarkdownRemark.edges}></PostListByYear>
     </Layout>
   );

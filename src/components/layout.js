@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link, useStaticQuery, graphql } from 'gatsby';
 import Loadable from '@loadable/component';
+import SEO from './seo';
 
 import '../css/reset.css';
 import '../css/fonts.css';

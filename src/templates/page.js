@@ -2,6 +2,7 @@ import React from 'react';
 import { graphql, Link } from 'gatsby';
 import Layout from '../components/layout';
 import NotesSidebar from '../components/notesSidebar';
+import SEO from '../components/seo';
 import * as noteUtils from '../utils/notes';
 import 'highlight.js/styles/routeros.css';
 
@@ -102,6 +103,12 @@ export default class Page extends React.Component {
         title={this.state.frontmatter.title}
         sidebar={sidebar}
       >
+        <SEO
+          title={this.state.frontmatter.title}
+          description="The internet home of Sam Brenner, Software Engineer at Spotify"
+          image="http://samjbrenner.com/lib/img/fb.jpg"
+        ></SEO>
+
         {postMeta}
 
         <div
