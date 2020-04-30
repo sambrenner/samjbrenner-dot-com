@@ -1,4 +1,5 @@
 import React from 'react';
+import styles from '../css/components/project.module.css';
 
 export default class Project extends React.Component {
   constructor(props) {
@@ -30,7 +31,7 @@ export default class Project extends React.Component {
       </a>{i < this.props.data.links.length - 1 ? ', ' : ''}
     </span>)) : <></>;
 
-    const carousel = (<ul className="project-media">
+    const carousel = (<ul className={styles.projectMedia}>
       {this.props.data.visual.map((v, i) => {
         let media;
 
@@ -46,13 +47,13 @@ export default class Project extends React.Component {
             break;
         }
 
-        return (<li key={i} className={i === this.state.activeImage ? 'active' : ''}>
+        return (<li key={i} className={i === this.state.activeImage ? styles.active : ''}>
           {media}
         </li>)
       })}
     </ul>);
 
-    const imageLinks = this.props.data.visual.length > 1 ? (<div className="additional-media-links">
+    const imageLinks = this.props.data.visual.length > 1 ? (<div className={styles.additionalMediaLinks}>
       <span>Additional Media:</span>
       <ul>
         {this.props.data.visual.map((v, i) => (
@@ -70,7 +71,7 @@ export default class Project extends React.Component {
     </div>) : null;
 
     return (
-      <li key={this.props.data.seoname}>
+      <li key={this.props.data.seoname} className={styles.project}>
         {carousel}
 
         <h3>{this.props.data.title}</h3>

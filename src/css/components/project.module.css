@@ -1,5 +1,8 @@
-li {
+.project {
+  border-bottom: 1px solid #d9d3dd;
   list-style-type: none;
+  margin-bottom: 0;
+  padding-bottom: 50px;
 }
 
 .additional-media-links ul {
@@ -10,19 +13,6 @@ li {
 .additional-media-links ul li {
   display: inline;
   margin-right: 8px;
-}
-
-#projects {
-  display: grid;
-  gap: 20px;
-  grid-template-columns: 1fr 1fr;
-  width: 100%;
-}
-
-#projects > li {
-  border-bottom: 1px solid #d9d3dd;
-  margin-bottom: 0;
-  padding-bottom: 50px;
 }
 
 .project-media li {
@@ -39,14 +29,4 @@ li {
 
 .project-media li img {
   width: 100%;
-}
-
-@media screen and (max-width: 1000px) {
-  #projects {
-    grid-template-columns: auto;
-  }
-
-  #projects > li:last-of-type {
-    border-bottom: none;
-  }
 }

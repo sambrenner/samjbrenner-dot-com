@@ -10,7 +10,7 @@ import '../css/layout.css';
 
 const BoatGame = Loadable(() => import('./boatGame'));
 
-const Layout = ({ title, sidebar, children }) => {
+const Layout = ({ title, sidebar, children, customStyles }) => {
   const data = useStaticQuery(graphql`
     query SiteTitleQuery {
       site {
@@ -22,7 +22,7 @@ const Layout = ({ title, sidebar, children }) => {
   `);
 
   return (
-    <div id="main-container">
+    <div className={`main-container ${customStyles ? customStyles.mainContainer : ''}`}>
       <header>
         <Link to="/">
           <h1>Sam Brenner</h1>

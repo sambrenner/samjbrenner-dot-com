@@ -61,11 +61,15 @@ li {
     padding-top: 20px;
 }
 
+#extra-sidebar li {
+  list-style-type: none;
+}
+
 main {
     overflow: auto;
 }
 
-#main-container {
+.main-container {
     display: grid;
     gap: 20px;
     grid-auto-flow: column;
@@ -75,16 +79,16 @@ main {
     max-width: 1000px;
 }
 
-#main-container h2 {
+.main-container h2 {
     min-height: 2rem;
     margin-bottom: 16px;
 }
 
-#main-container main {
+.main-container main {
     grid-row: 1 / span 2;
 }
 
-#main-container .page-content h2 {
+.main-container .page-content h2 {
     font-size: 1.6rem;
     font-weight: 700;
     margin-top: 1.8rem;

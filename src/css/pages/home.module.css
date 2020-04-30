@@ -1,0 +1,20 @@
+.main-container {
+  max-width: 1400px;
+}
+
+.projects {
+  display: grid;
+  gap: 20px;
+  grid-template-columns: 1fr 1fr;
+  width: 100%;
+}
+
+@media screen and (max-width: 1000px) {
+  .projects {
+    grid-template-columns: auto;
+  }
+
+  .projects > li:last-of-type {
+    border-bottom: none;
+  }
+}
