@@ -5,7 +5,7 @@ export default [
     seoname: 'cbre',
     year: '2019-2020',
     type: 'online',
-    description: '<p>At CBRE Build I worked on Plans Pro, a floorplan editor for office spaces. I led improvements to frontend performance and built debugging tools to assist in the workflow of the product&apos;s production team.</p>',
+    description: '<p>At CBRE Build I worked on Plans Pro, a web-based floorplan editor for office spaces. I led improvements to frontend performance, built full-stack features for the administrative CMS, and built graph debugging tools to assist our in-house production team.</p>',
     visual: [
       { type: 'image', url: '/img/portfolio/online/cbre/cbre1.png' },
       { type: 'image', url: '/img/portfolio/online/cbre/cbre2.png' }
