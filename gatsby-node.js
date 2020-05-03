@@ -60,14 +60,14 @@ exports.createPages = async({ actions, graphql, reporter }) => {
       component: pageTemplate,
       context: {
         post: true,
-        prev: i < posts.length - 2 ? {
+        prev: i < posts.length - 1 ? {
           url: posts[i + 1].frontmatter.path,
           title: posts[i + 1].frontmatter.title
         } : null,
         next: i > 0 ? {
           url: posts[i - 1].frontmatter.path,
           title: posts[i - 1].frontmatter.title
-        }: null
+        } : null
       }
     });
   });
