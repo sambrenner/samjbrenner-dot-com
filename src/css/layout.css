@@ -56,13 +56,17 @@ li {
     display: none;
 }
 
+#extra-footer li {
+    list-style-type: none;
+}
+
 #extra-footer, #extra-sidebar {
     border-top: 1px solid #d9d3dd;
     padding-top: 20px;
 }
 
 #extra-sidebar li {
-  list-style-type: none;
+    list-style-type: none;
 }
 
 main {
@@ -155,10 +159,6 @@ nav li a {
 }
 
 @media screen and (max-width: 800px) {
-    #about {
-        display: none;
-    }
-
     #boatgame {
         display: none;
     }
@@ -168,6 +168,7 @@ nav li a {
     }
 
     #extra-footer {
+
         display: block;
     }
 
