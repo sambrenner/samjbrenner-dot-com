@@ -18,7 +18,7 @@ export default [
     seoname: 'vidcode',
     year: '2016-2019',
     type: 'online',
-    description: '<p>At Vidcode I led the engineering team to build our creative coding education platform used in daily thousands of schools across the country. Major initiatives included rebuilding the teacher dashboard used by educators to track student progress, rebuilding our rendering engine, and integrating our coding platform with external LMSes.</p>',
+    description: '<p>At Vidcode I led the engineering team to build our creative coding education platform used daily in thousands of schools across the country. Major initiatives included rebuilding the teacher dashboard used by educators to track student progress, rebuilding our rendering engine, and integrating our coding platform with external LMSes.</p>',
     visual: [
       { type: 'image', url: '/img/portfolio/online/vidcode/vidcode.gif' },
       { type: 'image', url: '/img/portfolio/online/vidcode/01.jpg' },
