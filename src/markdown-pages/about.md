@@ -16,3 +16,13 @@ I am a graduate of the Rochester Insitute of Technology's New Media Design progr
 Elsewhere on the internet, I can be found on <a href="https://github.com/sambrenner">GitHub</a>, <a href="https://twitter.com/sfwsam">Twitter</a>, and <a href="https://linkedin.com/in/sambrenner">LinkedIn</a>. <a href="https://www.youtube.com/playlist?list=PLrZx1w6R2SyShWak_kQauPyE8TVJ1xCaD">Here are some of my favorite videos on YouTube</a>.
 
 Please write me! My email address is sam at samjbrenner.com.
+
+<webring-banner style="border-top: 1px solid #d9d3dd; display: block; padding-top: 10px;">
+    <p>
+        This site is a member of the <a href="https://billdebeest.club">Bill De Beest</a> webring! Go visit another site:
+        <a href="https://billdebeest.club/prev">Previous</a>
+        <a href="https://billdebeest.club/next">Next</a>
+        <a href="https://billdebeest.club/random">Random</a>
+    </p>
+</webring-banner>
+<script async src="https://billdebeest.club/embed.js" charset="utf-8"></script>
