@@ -1,14 +1,14 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { Link, useStaticQuery, graphql } from 'gatsby';
-import Loadable from '@loadable/component';
-import SEO from './seo';
+import React from "react";
+import PropTypes from "prop-types";
+import { Link, useStaticQuery, graphql } from "gatsby";
+import Loadable from "@loadable/component";
+import SEO from "./seo";
 
-import '../css/reset.css';
-import '../css/fonts.css';
-import '../css/layout.css';
+import "../css/reset.css";
+import "../css/fonts.css";
+import "../css/layout.css";
 
-const BoatGame = Loadable(() => import('./boatGame'));
+const BoatGame = Loadable(() => import("./boatGame"));
 
 const Layout = ({ title, sidebar, children, customStyles }) => {
   const data = useStaticQuery(graphql`
@@ -22,7 +22,11 @@ const Layout = ({ title, sidebar, children, customStyles }) => {
   `);
 
   return (
-    <div className={`main-container ${customStyles ? customStyles.mainContainer : ''}`}>
+    <div
+      className={`main-container ${
+        customStyles ? customStyles.mainContainer : ""
+      }`}
+    >
       <header>
         <Link to="/">
           <h1>Sam Brenner</h1>
@@ -34,31 +38,36 @@ const Layout = ({ title, sidebar, children, customStyles }) => {
 
         <nav>
           <ul>
-            <li><Link to="/">Portfolio</Link></li>
-            <li><Link to="/notes">Blog</Link></li>
-            <li><Link to="/about">About</Link></li>
+            <li>
+              <Link to="/">Portfolio</Link>
+            </li>
+            <li>
+              <Link to="/notes">Blog</Link>
+            </li>
+            <li>
+              <Link to="/about">About</Link>
+            </li>
           </ul>
         </nav>
 
         <section id="about">
           <p>
-            The internet home of Sam Brenner, Software Engineer at <a href="https://spotify.com">Spotify</a>.
+            The internet home of Sam Brenner, Software Engineer at{" "}
+            <a href="https://spotify.com">Spotify</a>.
           </p>
-
           <p>
-            Elsewhere on the internet, I can be found on <a href="https://github.com/sambrenner">GitHub</a>, <a href="https://twitter.com/sfwsam">Twitter</a>, and <a href="https://linkedin.com/in/sambrenner">LinkedIn</a>. <a href="https://www.youtube.com/playlist?list=PLrZx1w6R2SyShWak_kQauPyE8TVJ1xCaD">Here are some of my favorite videos on YouTube</a>.
+            <a href="https://www.youtube.com/playlist?list=PLrZx1w6R2SyShWak_kQauPyE8TVJ1xCaD">
+              Here are some fun videos!
+            </a>
           </p>
-
-          <p>
-            I am also available for cyber-correspondence via email: sam at samjbrenner dot com.
-          </p>
+          .
         </section>
 
         {sidebar ? (
-          <section id="extra-sidebar">
-            {sidebar}
-          </section>
-        ) : <span></span>}
+          <section id="extra-sidebar">{sidebar}</section>
+        ) : (
+          <span></span>
+        )}
       </div>
 
       <main>
@@ -66,17 +75,13 @@ const Layout = ({ title, sidebar, children, customStyles }) => {
         {children}
       </main>
 
-      {sidebar ? (
-        <section id="extra-footer">
-          {sidebar}
-        </section>
-      ) : <span></span>}
+      {sidebar ? <section id="extra-footer">{sidebar}</section> : <span></span>}
     </div>
   );
 };
 
 Layout.propTypes = {
-  children: PropTypes.node.isRequired
+  children: PropTypes.node.isRequired,
 };
 
 export default Layout;
