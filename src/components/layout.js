@@ -60,7 +60,6 @@ const Layout = ({ title, sidebar, children, customStyles }) => {
               Here are some fun videos!
             </a>
           </p>
-          .
         </section>
 
         {sidebar ? (
