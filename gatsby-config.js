@@ -18,7 +18,7 @@ module.exports = {
     {
       resolve: `gatsby-plugin-manifest`,
       options: {
-        name: `gatsby-starter-default`,
+        name: `Sam Brenner: Portfolio`,
         short_name: `starter`,
         start_url: `/`,
         background_color: `#663399`,
@@ -43,18 +43,18 @@ module.exports = {
     {
       resolve: `gatsby-transformer-remark`,
       options: {
-        plugins: [`gatsby-remark-highlight.js`]
-      }
+        plugins: [`gatsby-remark-highlight.js`],
+      },
     },
     {
-      resolve: 'gatsby-plugin-favicon',
+      resolve: "gatsby-plugin-favicon",
       options: {
-        logo: './src/images/favicon.gif'
-      }
-    }
+        logo: "./src/images/favicon.gif",
+      },
+    },
 
     // this (optional) plugin enables Progressive Web App + Offline functionality
     // To learn more, visit: https://gatsby.dev/offline
     // `gatsby-plugin-offline`,
-  ]
+  ],
 };
